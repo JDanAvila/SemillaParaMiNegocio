@@ -6,5 +6,4 @@ public interface IRolService {
 	
 	public String crearRol(Rol rol);
 	
-
 }
