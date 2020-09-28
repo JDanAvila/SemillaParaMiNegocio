@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package co.edu.usbbog.spmn.spmnws.model;
+
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -156,7 +157,7 @@ public class FacturaVenta implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication104.FacturaVenta[ idFactura=" + idFactura + " ]";
+        return "co.edu.usbbog.spmn.spmnws.model.FacturaVenta[ idFactura=" + idFactura + " ]";
     }
     
 }

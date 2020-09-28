@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package co.edu.usbbog.spmn.spmnws.model;
+
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -16,11 +17,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class InventarioPK implements Serializable {
 
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	@Basic(optional = false)
+    @Basic(optional = false)
     @Column(name = "Tienda_idTienda")
     private int tiendaidTienda;
     @Basic(optional = false)
@@ -77,7 +74,7 @@ public class InventarioPK implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication104.InventarioPK[ tiendaidTienda=" + tiendaidTienda + ", productoidProducto=" + productoidProducto + " ]";
+        return "co.edu.usbbog.spmn.spmnws.model.InventarioPK[ tiendaidTienda=" + tiendaidTienda + ", productoidProducto=" + productoidProducto + " ]";
     }
     
 }

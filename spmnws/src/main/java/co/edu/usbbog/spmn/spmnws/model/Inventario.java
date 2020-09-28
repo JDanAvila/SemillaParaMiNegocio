@@ -39,6 +39,8 @@ public class Inventario implements Serializable {
     private Collection<FacturaCompra> facturaCompraCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "inventario")
     private Collection<Reportes> reportesCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "inventario")
+    private Collection<Reporte> reporteCollection;
     @JoinColumn(name = "Producto_idProducto", referencedColumnName = "idProducto", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Producto producto;
@@ -83,6 +85,15 @@ public class Inventario implements Serializable {
         this.reportesCollection = reportesCollection;
     }
 
+    @XmlTransient
+    public Collection<Reporte> getReporteCollection() {
+        return reporteCollection;
+    }
+
+    public void setReporteCollection(Collection<Reporte> reporteCollection) {
+        this.reporteCollection = reporteCollection;
+    }
+
     public Producto getProducto() {
         return producto;
     }
@@ -121,7 +132,7 @@ public class Inventario implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication104.Inventario[ inventarioPK=" + inventarioPK + " ]";
+        return "co.edu.usbbog.spmn.spmnws.model.Inventario[ inventarioPK=" + inventarioPK + " ]";
     }
     
 }

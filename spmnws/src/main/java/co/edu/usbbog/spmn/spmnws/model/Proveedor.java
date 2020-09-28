@@ -128,7 +128,7 @@ public class Proveedor implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication104.Proveedor[ nit=" + nit + " ]";
+        return "co.edu.usbbog.spmn.spmnws.model.Proveedor[ nit=" + nit + " ]";
     }
     
 }

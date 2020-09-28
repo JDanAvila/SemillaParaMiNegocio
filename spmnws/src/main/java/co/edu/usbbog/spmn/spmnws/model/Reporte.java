@@ -26,16 +26,16 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author hp
  */
 @Entity
-@Table(name = "reportes")
+@Table(name = "reporte")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Reportes.findAll", query = "SELECT r FROM Reportes r")
-    , @NamedQuery(name = "Reportes.findByIdReportes", query = "SELECT r FROM Reportes r WHERE r.idReportes = :idReportes")
-    , @NamedQuery(name = "Reportes.findByDescripcion", query = "SELECT r FROM Reportes r WHERE r.descripcion = :descripcion")
-    , @NamedQuery(name = "Reportes.findByFechaInicial", query = "SELECT r FROM Reportes r WHERE r.fechaInicial = :fechaInicial")
-    , @NamedQuery(name = "Reportes.findByCantidadTotal", query = "SELECT r FROM Reportes r WHERE r.cantidadTotal = :cantidadTotal")
-    , @NamedQuery(name = "Reportes.findByCantidadEspecifica", query = "SELECT r FROM Reportes r WHERE r.cantidadEspecifica = :cantidadEspecifica")})
-public class Reportes implements Serializable {
+    @NamedQuery(name = "Reporte.findAll", query = "SELECT r FROM Reporte r")
+    , @NamedQuery(name = "Reporte.findByIdReportes", query = "SELECT r FROM Reporte r WHERE r.idReportes = :idReportes")
+    , @NamedQuery(name = "Reporte.findByDescripcion", query = "SELECT r FROM Reporte r WHERE r.descripcion = :descripcion")
+    , @NamedQuery(name = "Reporte.findByFechaInicial", query = "SELECT r FROM Reporte r WHERE r.fechaInicial = :fechaInicial")
+    , @NamedQuery(name = "Reporte.findByCantidadTotal", query = "SELECT r FROM Reporte r WHERE r.cantidadTotal = :cantidadTotal")
+    , @NamedQuery(name = "Reporte.findByCantidadEspecifica", query = "SELECT r FROM Reporte r WHERE r.cantidadEspecifica = :cantidadEspecifica")})
+public class Reporte implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -61,14 +61,14 @@ public class Reportes implements Serializable {
     @ManyToOne(optional = false)
     private Inventario inventario;
 
-    public Reportes() {
+    public Reporte() {
     }
 
-    public Reportes(Integer idReportes) {
+    public Reporte(Integer idReportes) {
         this.idReportes = idReportes;
     }
 
-    public Reportes(Integer idReportes, String descripcion, Date fechaInicial, int cantidadTotal, int cantidadEspecifica) {
+    public Reporte(Integer idReportes, String descripcion, Date fechaInicial, int cantidadTotal, int cantidadEspecifica) {
         this.idReportes = idReportes;
         this.descripcion = descripcion;
         this.fechaInicial = fechaInicial;
@@ -134,10 +134,10 @@ public class Reportes implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Reportes)) {
+        if (!(object instanceof Reporte)) {
             return false;
         }
-        Reportes other = (Reportes) object;
+        Reporte other = (Reporte) object;
         if ((this.idReportes == null && other.idReportes != null) || (this.idReportes != null && !this.idReportes.equals(other.idReportes))) {
             return false;
         }
@@ -146,7 +146,7 @@ public class Reportes implements Serializable {
 
     @Override
     public String toString() {
-        return "co.edu.usbbog.spmn.spmnws.model.Reportes[ idReportes=" + idReportes + " ]";
+        return "co.edu.usbbog.spmn.spmnws.model.Reporte[ idReportes=" + idReportes + " ]";
     }
     
 }

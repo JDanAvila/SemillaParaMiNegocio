@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author 
+ * @author hp
  */
 @Entity
 @Table(name = "factura_compra")
@@ -127,7 +127,7 @@ public class FacturaCompra implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication104.FacturaCompra[ idFactura=" + idFactura + " ]";
+        return "co.edu.usbbog.spmn.spmnws.model.FacturaCompra[ idFactura=" + idFactura + " ]";
     }
     
 }

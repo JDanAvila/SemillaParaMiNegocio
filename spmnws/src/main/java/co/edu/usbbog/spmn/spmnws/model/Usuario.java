@@ -13,7 +13,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -55,7 +54,9 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @Column(name = "U_telefono")
     private String utelefono;
-    @ManyToMany(mappedBy = "usuarioCollection")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+    private Collection<RolHasUsuario> rolHasUsuarioCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioidUsuario")
     private Collection<Rol> rolCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioidUsuario")
     private Collection<FacturaVenta> facturaVentaCollection;
@@ -119,6 +120,15 @@ public class Usuario implements Serializable {
     }
 
     @XmlTransient
+    public Collection<RolHasUsuario> getRolHasUsuarioCollection() {
+        return rolHasUsuarioCollection;
+    }
+
+    public void setRolHasUsuarioCollection(Collection<RolHasUsuario> rolHasUsuarioCollection) {
+        this.rolHasUsuarioCollection = rolHasUsuarioCollection;
+    }
+
+    @XmlTransient
     public Collection<Rol> getRolCollection() {
         return rolCollection;
     }
@@ -166,7 +176,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication104.Usuario[ idUsuario=" + idUsuario + " ]";
+        return "co.edu.usbbog.spmn.spmnws.model.Usuario[ idUsuario=" + idUsuario + " ]";
     }
     
 }

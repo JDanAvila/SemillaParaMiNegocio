@@ -42,7 +42,7 @@ public class Servicio implements Serializable {
     @Basic(optional = false)
     @Column(name = "precio")
     private int precio;
-    @JoinColumn(name = "tienda_idTienda", referencedColumnName = "idTienda")
+    @JoinColumn(name = "Tienda_idTienda", referencedColumnName = "idTienda")
     @ManyToOne(optional = false)
     private Tienda tiendaidTienda;
 
@@ -113,7 +113,7 @@ public class Servicio implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication104.Servicio[ nombreServicio=" + nombreServicio + " ]";
+        return "co.edu.usbbog.spmn.spmnws.model.Servicio[ nombreServicio=" + nombreServicio + " ]";
     }
     
 }

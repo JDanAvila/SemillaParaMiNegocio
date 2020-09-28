@@ -4,17 +4,19 @@
  * and open the template in the editor.
  */
 package co.edu.usbbog.spmn.spmnws.model;
+
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -40,11 +42,11 @@ public class Rol implements Serializable {
     @Basic(optional = false)
     @Column(name = "cargo")
     private String cargo;
-    @JoinTable(name = "rol_has_usuario", joinColumns = {
-        @JoinColumn(name = "rol_idRol", referencedColumnName = "idRol")}, inverseJoinColumns = {
-        @JoinColumn(name = "usuario_idUsuario", referencedColumnName = "idUsuario")})
-    @ManyToMany
-    private Collection<Usuario> usuarioCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rol")
+    private Collection<RolHasUsuario> rolHasUsuarioCollection;
+    @JoinColumn(name = "Usuario_idUsuario", referencedColumnName = "idUsuario")
+    @ManyToOne(optional = false)
+    private Usuario usuarioidUsuario;
 
     public Rol() {
     }
@@ -75,12 +77,20 @@ public class Rol implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Usuario> getUsuarioCollection() {
-        return usuarioCollection;
+    public Collection<RolHasUsuario> getRolHasUsuarioCollection() {
+        return rolHasUsuarioCollection;
     }
 
-    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
-        this.usuarioCollection = usuarioCollection;
+    public void setRolHasUsuarioCollection(Collection<RolHasUsuario> rolHasUsuarioCollection) {
+        this.rolHasUsuarioCollection = rolHasUsuarioCollection;
+    }
+
+    public Usuario getUsuarioidUsuario() {
+        return usuarioidUsuario;
+    }
+
+    public void setUsuarioidUsuario(Usuario usuarioidUsuario) {
+        this.usuarioidUsuario = usuarioidUsuario;
     }
 
     @Override
@@ -105,7 +115,7 @@ public class Rol implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication104.Rol[ idRol=" + idRol + " ]";
+        return "co.edu.usbbog.spmn.spmnws.model.Rol[ idRol=" + idRol + " ]";
     }
     
 }

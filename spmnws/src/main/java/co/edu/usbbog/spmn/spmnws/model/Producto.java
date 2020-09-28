@@ -153,7 +153,7 @@ public class Producto implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication104.Producto[ idProducto=" + idProducto + " ]";
+        return "co.edu.usbbog.spmn.spmnws.model.Producto[ idProducto=" + idProducto + " ]";
     }
     
 }

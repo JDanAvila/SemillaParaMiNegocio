@@ -28,8 +28,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Impuesto.findAll", query = "SELECT i FROM Impuesto i")
     , @NamedQuery(name = "Impuesto.findByIdIimpuestos", query = "SELECT i FROM Impuesto i WHERE i.idIimpuestos = :idIimpuestos")
     , @NamedQuery(name = "Impuesto.findByNombre", query = "SELECT i FROM Impuesto i WHERE i.nombre = :nombre")
-    , @NamedQuery(name = "Impuesto.findByCosto", query = "SELECT i FROM Impuesto i WHERE i.costo = :costo")
-    , @NamedQuery(name = "Impuesto.findByDescripci\u00f3n", query = "SELECT i FROM Impuesto i WHERE i.descripci\u00f3n = :descripci\u00f3n")})
+    , @NamedQuery(name = "Impuesto.findByDescripcion", query = "SELECT i FROM Impuesto i WHERE i.descripcion = :descripcion")
+    , @NamedQuery(name = "Impuesto.findByCosto", query = "SELECT i FROM Impuesto i WHERE i.costo = :costo")})
 public class Impuesto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,12 +41,12 @@ public class Impuesto implements Serializable {
     @Column(name = "nombre")
     private String nombre;
     @Basic(optional = false)
+    @Column(name = "descripcion")
+    private String descripcion;
+    @Basic(optional = false)
     @Column(name = "costo")
     private int costo;
-    @Basic(optional = false)
-    @Column(name = "descripci\u00f3n")
-    private String descripción;
-    @JoinColumn(name = "tienda_idTienda", referencedColumnName = "idTienda")
+    @JoinColumn(name = "Tienda_idTienda", referencedColumnName = "idTienda")
     @ManyToOne(optional = false)
     private Tienda tiendaidTienda;
 
@@ -57,11 +57,11 @@ public class Impuesto implements Serializable {
         this.idIimpuestos = idIimpuestos;
     }
 
-    public Impuesto(Integer idIimpuestos, String nombre, int costo, String descripción) {
+    public Impuesto(Integer idIimpuestos, String nombre, String descripcion, int costo) {
         this.idIimpuestos = idIimpuestos;
         this.nombre = nombre;
+        this.descripcion = descripcion;
         this.costo = costo;
-        this.descripción = descripción;
     }
 
     public Integer getIdIimpuestos() {
@@ -80,20 +80,20 @@ public class Impuesto implements Serializable {
         this.nombre = nombre;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
     public int getCosto() {
         return costo;
     }
 
     public void setCosto(int costo) {
         this.costo = costo;
-    }
-
-    public String getDescripción() {
-        return descripción;
-    }
-
-    public void setDescripción(String descripción) {
-        this.descripción = descripción;
     }
 
     public Tienda getTiendaidTienda() {
@@ -126,7 +126,7 @@ public class Impuesto implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication104.Impuesto[ idIimpuestos=" + idIimpuestos + " ]";
+        return "co.edu.usbbog.spmn.spmnws.model.Impuesto[ idIimpuestos=" + idIimpuestos + " ]";
     }
     
 }

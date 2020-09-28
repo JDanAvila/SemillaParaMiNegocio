@@ -172,7 +172,7 @@ public class Tienda implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication104.Tienda[ idTienda=" + idTienda + " ]";
+        return "co.edu.usbbog.spmn.spmnws.model.Tienda[ idTienda=" + idTienda + " ]";
     }
     
 }

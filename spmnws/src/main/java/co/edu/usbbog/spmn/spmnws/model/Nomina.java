@@ -58,7 +58,7 @@ public class Nomina implements Serializable {
     @Basic(optional = false)
     @Column(name = "liquidacion_total")
     private int liquidacionTotal;
-    @JoinColumn(name = "tienda_idTienda", referencedColumnName = "idTienda")
+    @JoinColumn(name = "Tienda_idTienda", referencedColumnName = "idTienda")
     @ManyToOne(optional = false)
     private Tienda tiendaidTienda;
 
@@ -156,7 +156,7 @@ public class Nomina implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication104.Nomina[ idNomina=" + idNomina + " ]";
+        return "co.edu.usbbog.spmn.spmnws.model.Nomina[ idNomina=" + idNomina + " ]";
     }
     
 }
