@@ -22,50 +22,50 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author hp
  */
 @Entity
-@Table(name = "inventario")
+@Table(name = "cant_venta")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Inventario.findAll", query = "SELECT i FROM Inventario i")
-    , @NamedQuery(name = "Inventario.findByProducto", query = "SELECT i FROM Inventario i WHERE i.inventarioPK.producto = :producto")
-    , @NamedQuery(name = "Inventario.findByTienda", query = "SELECT i FROM Inventario i WHERE i.inventarioPK.tienda = :tienda")
-    , @NamedQuery(name = "Inventario.findByCantidad", query = "SELECT i FROM Inventario i WHERE i.cantidad = :cantidad")})
-public class Inventario implements Serializable {
+    @NamedQuery(name = "CantVenta.findAll", query = "SELECT c FROM CantVenta c")
+    , @NamedQuery(name = "CantVenta.findByFacturaVenta", query = "SELECT c FROM CantVenta c WHERE c.cantVentaPK.facturaVenta = :facturaVenta")
+    , @NamedQuery(name = "CantVenta.findByProducto", query = "SELECT c FROM CantVenta c WHERE c.cantVentaPK.producto = :producto")
+    , @NamedQuery(name = "CantVenta.findByCantidad", query = "SELECT c FROM CantVenta c WHERE c.cantidad = :cantidad")})
+public class CantVenta implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected InventarioPK inventarioPK;
+    protected CantVentaPK cantVentaPK;
     @Basic(optional = false)
     @Column(name = "cantidad")
     private int cantidad;
-    @JoinColumn(name = "tienda", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "factura_venta", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Tienda tienda1;
+    private FacturaVenta facturaVenta1;
     @JoinColumn(name = "producto", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Producto producto1;
 
-    public Inventario() {
+    public CantVenta() {
     }
 
-    public Inventario(InventarioPK inventarioPK) {
-        this.inventarioPK = inventarioPK;
+    public CantVenta(CantVentaPK cantVentaPK) {
+        this.cantVentaPK = cantVentaPK;
     }
 
-    public Inventario(InventarioPK inventarioPK, int cantidad) {
-        this.inventarioPK = inventarioPK;
+    public CantVenta(CantVentaPK cantVentaPK, int cantidad) {
+        this.cantVentaPK = cantVentaPK;
         this.cantidad = cantidad;
     }
 
-    public Inventario(int producto, int tienda) {
-        this.inventarioPK = new InventarioPK(producto, tienda);
+    public CantVenta(int facturaVenta, int producto) {
+        this.cantVentaPK = new CantVentaPK(facturaVenta, producto);
     }
 
-    public InventarioPK getInventarioPK() {
-        return inventarioPK;
+    public CantVentaPK getCantVentaPK() {
+        return cantVentaPK;
     }
 
-    public void setInventarioPK(InventarioPK inventarioPK) {
-        this.inventarioPK = inventarioPK;
+    public void setCantVentaPK(CantVentaPK cantVentaPK) {
+        this.cantVentaPK = cantVentaPK;
     }
 
     public int getCantidad() {
@@ -76,12 +76,12 @@ public class Inventario implements Serializable {
         this.cantidad = cantidad;
     }
 
-    public Tienda getTienda1() {
-        return tienda1;
+    public FacturaVenta getFacturaVenta1() {
+        return facturaVenta1;
     }
 
-    public void setTienda1(Tienda tienda1) {
-        this.tienda1 = tienda1;
+    public void setFacturaVenta1(FacturaVenta facturaVenta1) {
+        this.facturaVenta1 = facturaVenta1;
     }
 
     public Producto getProducto1() {
@@ -95,18 +95,18 @@ public class Inventario implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (inventarioPK != null ? inventarioPK.hashCode() : 0);
+        hash += (cantVentaPK != null ? cantVentaPK.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Inventario)) {
+        if (!(object instanceof CantVenta)) {
             return false;
         }
-        Inventario other = (Inventario) object;
-        if ((this.inventarioPK == null && other.inventarioPK != null) || (this.inventarioPK != null && !this.inventarioPK.equals(other.inventarioPK))) {
+        CantVenta other = (CantVenta) object;
+        if ((this.cantVentaPK == null && other.cantVentaPK != null) || (this.cantVentaPK != null && !this.cantVentaPK.equals(other.cantVentaPK))) {
             return false;
         }
         return true;
@@ -114,7 +114,7 @@ public class Inventario implements Serializable {
 
     @Override
     public String toString() {
-        return "co.edu.usbbog.spmn.spmnws.model.Inventario[ inventarioPK=" + inventarioPK + " ]";
+        return "co.edu.usbbog.spmn.spmnws.model.CantVenta[ cantVentaPK=" + cantVentaPK + " ]";
     }
     
 }

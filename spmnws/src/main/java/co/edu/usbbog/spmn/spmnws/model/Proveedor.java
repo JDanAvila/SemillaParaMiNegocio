@@ -48,8 +48,8 @@ public class Proveedor implements Serializable {
     @Basic(optional = false)
     @Column(name = "cel")
     private int cel;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "proveedorNit")
-    private Collection<FacturaCompra> facturaCompraCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "proveedor")
+    private Collection<Recibo> reciboCollection;
 
     public Proveedor() {
     }
@@ -98,12 +98,12 @@ public class Proveedor implements Serializable {
     }
 
     @XmlTransient
-    public Collection<FacturaCompra> getFacturaCompraCollection() {
-        return facturaCompraCollection;
+    public Collection<Recibo> getReciboCollection() {
+        return reciboCollection;
     }
 
-    public void setFacturaCompraCollection(Collection<FacturaCompra> facturaCompraCollection) {
-        this.facturaCompraCollection = facturaCompraCollection;
+    public void setReciboCollection(Collection<Recibo> reciboCollection) {
+        this.reciboCollection = reciboCollection;
     }
 
     @Override

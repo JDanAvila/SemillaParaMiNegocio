@@ -15,33 +15,33 @@ import javax.persistence.Embeddable;
  * @author hp
  */
 @Embeddable
-public class InventarioPK implements Serializable {
+public class PagoImpuestoPK implements Serializable {
 
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	@Basic(optional = false)
-    @Column(name = "producto")
-    private int producto;
+    @Column(name = "impuesto")
+    private int impuesto;
     @Basic(optional = false)
     @Column(name = "tienda")
     private int tienda;
 
-    public InventarioPK() {
+    public PagoImpuestoPK() {
     }
 
-    public InventarioPK(int producto, int tienda) {
-        this.producto = producto;
+    public PagoImpuestoPK(int impuesto, int tienda) {
+        this.impuesto = impuesto;
         this.tienda = tienda;
     }
 
-    public int getProducto() {
-        return producto;
+    public int getImpuesto() {
+        return impuesto;
     }
 
-    public void setProducto(int producto) {
-        this.producto = producto;
+    public void setImpuesto(int impuesto) {
+        this.impuesto = impuesto;
     }
 
     public int getTienda() {
@@ -55,7 +55,7 @@ public class InventarioPK implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) producto;
+        hash += (int) impuesto;
         hash += (int) tienda;
         return hash;
     }
@@ -63,11 +63,11 @@ public class InventarioPK implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof InventarioPK)) {
+        if (!(object instanceof PagoImpuestoPK)) {
             return false;
         }
-        InventarioPK other = (InventarioPK) object;
-        if (this.producto != other.producto) {
+        PagoImpuestoPK other = (PagoImpuestoPK) object;
+        if (this.impuesto != other.impuesto) {
             return false;
         }
         if (this.tienda != other.tienda) {
@@ -78,7 +78,7 @@ public class InventarioPK implements Serializable {
 
     @Override
     public String toString() {
-        return "co.edu.usbbog.spmn.spmnws.model.InventarioPK[ producto=" + producto + ", tienda=" + tienda + " ]";
+        return "co.edu.usbbog.spmn.spmnws.model.PagoImpuestoPK[ impuesto=" + impuesto + ", tienda=" + tienda + " ]";
     }
     
 }

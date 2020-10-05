@@ -6,16 +6,18 @@
 package co.edu.usbbog.spmn.spmnws.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -26,45 +28,49 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Servicio.findAll", query = "SELECT s FROM Servicio s")
-    , @NamedQuery(name = "Servicio.findByNombreServicio", query = "SELECT s FROM Servicio s WHERE s.nombreServicio = :nombreServicio")
+    , @NamedQuery(name = "Servicio.findByNombre", query = "SELECT s FROM Servicio s WHERE s.nombre = :nombre")
     , @NamedQuery(name = "Servicio.findByDescripcion", query = "SELECT s FROM Servicio s WHERE s.descripcion = :descripcion")
-    , @NamedQuery(name = "Servicio.findByPrecio", query = "SELECT s FROM Servicio s WHERE s.precio = :precio")})
+    , @NamedQuery(name = "Servicio.findByTelefono", query = "SELECT s FROM Servicio s WHERE s.telefono = :telefono")
+    , @NamedQuery(name = "Servicio.findByEntidad", query = "SELECT s FROM Servicio s WHERE s.entidad = :entidad")})
 public class Servicio implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "nombreServicio")
-    private Integer nombreServicio;
+    @Column(name = "nombre")
+    private String nombre;
     @Basic(optional = false)
     @Column(name = "descripcion")
     private String descripcion;
     @Basic(optional = false)
-    @Column(name = "precio")
-    private int precio;
-    @JoinColumn(name = "Tienda_idTienda", referencedColumnName = "idTienda")
-    @ManyToOne(optional = false)
-    private Tienda tiendaidTienda;
+    @Column(name = "telefono")
+    private int telefono;
+    @Basic(optional = false)
+    @Column(name = "entidad")
+    private String entidad;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "servicio1")
+    private Collection<PagoServicio> pagoServicioCollection;
 
     public Servicio() {
     }
 
-    public Servicio(Integer nombreServicio) {
-        this.nombreServicio = nombreServicio;
+    public Servicio(String nombre) {
+        this.nombre = nombre;
     }
 
-    public Servicio(Integer nombreServicio, String descripcion, int precio) {
-        this.nombreServicio = nombreServicio;
+    public Servicio(String nombre, String descripcion, int telefono, String entidad) {
+        this.nombre = nombre;
         this.descripcion = descripcion;
-        this.precio = precio;
+        this.telefono = telefono;
+        this.entidad = entidad;
     }
 
-    public Integer getNombreServicio() {
-        return nombreServicio;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombreServicio(Integer nombreServicio) {
-        this.nombreServicio = nombreServicio;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getDescripcion() {
@@ -75,26 +81,35 @@ public class Servicio implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public int getPrecio() {
-        return precio;
+    public int getTelefono() {
+        return telefono;
     }
 
-    public void setPrecio(int precio) {
-        this.precio = precio;
+    public void setTelefono(int telefono) {
+        this.telefono = telefono;
     }
 
-    public Tienda getTiendaidTienda() {
-        return tiendaidTienda;
+    public String getEntidad() {
+        return entidad;
     }
 
-    public void setTiendaidTienda(Tienda tiendaidTienda) {
-        this.tiendaidTienda = tiendaidTienda;
+    public void setEntidad(String entidad) {
+        this.entidad = entidad;
+    }
+
+    @XmlTransient
+    public Collection<PagoServicio> getPagoServicioCollection() {
+        return pagoServicioCollection;
+    }
+
+    public void setPagoServicioCollection(Collection<PagoServicio> pagoServicioCollection) {
+        this.pagoServicioCollection = pagoServicioCollection;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (nombreServicio != null ? nombreServicio.hashCode() : 0);
+        hash += (nombre != null ? nombre.hashCode() : 0);
         return hash;
     }
 
@@ -105,7 +120,7 @@ public class Servicio implements Serializable {
             return false;
         }
         Servicio other = (Servicio) object;
-        if ((this.nombreServicio == null && other.nombreServicio != null) || (this.nombreServicio != null && !this.nombreServicio.equals(other.nombreServicio))) {
+        if ((this.nombre == null && other.nombre != null) || (this.nombre != null && !this.nombre.equals(other.nombre))) {
             return false;
         }
         return true;
@@ -113,7 +128,7 @@ public class Servicio implements Serializable {
 
     @Override
     public String toString() {
-        return "co.edu.usbbog.spmn.spmnws.model.Servicio[ nombreServicio=" + nombreServicio + " ]";
+        return "co.edu.usbbog.spmn.spmnws.model.Servicio[ nombre=" + nombre + " ]";
     }
     
 }

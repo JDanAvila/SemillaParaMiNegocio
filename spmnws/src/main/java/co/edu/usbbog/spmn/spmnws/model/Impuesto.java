@@ -6,16 +6,18 @@
 package co.edu.usbbog.spmn.spmnws.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -26,17 +28,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Impuesto.findAll", query = "SELECT i FROM Impuesto i")
-    , @NamedQuery(name = "Impuesto.findByIdIimpuestos", query = "SELECT i FROM Impuesto i WHERE i.idIimpuestos = :idIimpuestos")
+    , @NamedQuery(name = "Impuesto.findById", query = "SELECT i FROM Impuesto i WHERE i.id = :id")
     , @NamedQuery(name = "Impuesto.findByNombre", query = "SELECT i FROM Impuesto i WHERE i.nombre = :nombre")
     , @NamedQuery(name = "Impuesto.findByDescripcion", query = "SELECT i FROM Impuesto i WHERE i.descripcion = :descripcion")
-    , @NamedQuery(name = "Impuesto.findByCosto", query = "SELECT i FROM Impuesto i WHERE i.costo = :costo")})
+    , @NamedQuery(name = "Impuesto.findByEntidad", query = "SELECT i FROM Impuesto i WHERE i.entidad = :entidad")})
 public class Impuesto implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "idIimpuestos")
-    private Integer idIimpuestos;
+    @Column(name = "id")
+    private Integer id;
     @Basic(optional = false)
     @Column(name = "nombre")
     private String nombre;
@@ -44,32 +46,31 @@ public class Impuesto implements Serializable {
     @Column(name = "descripcion")
     private String descripcion;
     @Basic(optional = false)
-    @Column(name = "costo")
-    private int costo;
-    @JoinColumn(name = "Tienda_idTienda", referencedColumnName = "idTienda")
-    @ManyToOne(optional = false)
-    private Tienda tiendaidTienda;
+    @Column(name = "entidad")
+    private String entidad;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "impuesto1")
+    private Collection<PagoImpuesto> pagoImpuestoCollection;
 
     public Impuesto() {
     }
 
-    public Impuesto(Integer idIimpuestos) {
-        this.idIimpuestos = idIimpuestos;
+    public Impuesto(Integer id) {
+        this.id = id;
     }
 
-    public Impuesto(Integer idIimpuestos, String nombre, String descripcion, int costo) {
-        this.idIimpuestos = idIimpuestos;
+    public Impuesto(Integer id, String nombre, String descripcion, String entidad) {
+        this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.costo = costo;
+        this.entidad = entidad;
     }
 
-    public Integer getIdIimpuestos() {
-        return idIimpuestos;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdIimpuestos(Integer idIimpuestos) {
-        this.idIimpuestos = idIimpuestos;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -88,26 +89,27 @@ public class Impuesto implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public int getCosto() {
-        return costo;
+    public String getEntidad() {
+        return entidad;
     }
 
-    public void setCosto(int costo) {
-        this.costo = costo;
+    public void setEntidad(String entidad) {
+        this.entidad = entidad;
     }
 
-    public Tienda getTiendaidTienda() {
-        return tiendaidTienda;
+    @XmlTransient
+    public Collection<PagoImpuesto> getPagoImpuestoCollection() {
+        return pagoImpuestoCollection;
     }
 
-    public void setTiendaidTienda(Tienda tiendaidTienda) {
-        this.tiendaidTienda = tiendaidTienda;
+    public void setPagoImpuestoCollection(Collection<PagoImpuesto> pagoImpuestoCollection) {
+        this.pagoImpuestoCollection = pagoImpuestoCollection;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idIimpuestos != null ? idIimpuestos.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -118,7 +120,7 @@ public class Impuesto implements Serializable {
             return false;
         }
         Impuesto other = (Impuesto) object;
-        if ((this.idIimpuestos == null && other.idIimpuestos != null) || (this.idIimpuestos != null && !this.idIimpuestos.equals(other.idIimpuestos))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -126,7 +128,7 @@ public class Impuesto implements Serializable {
 
     @Override
     public String toString() {
-        return "co.edu.usbbog.spmn.spmnws.model.Impuesto[ idIimpuestos=" + idIimpuestos + " ]";
+        return "co.edu.usbbog.spmn.spmnws.model.Impuesto[ id=" + id + " ]";
     }
     
 }

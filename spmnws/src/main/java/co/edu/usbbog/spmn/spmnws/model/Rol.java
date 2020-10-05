@@ -8,15 +8,12 @@ package co.edu.usbbog.spmn.spmnws.model;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -30,42 +27,39 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Rol.findAll", query = "SELECT r FROM Rol r")
-    , @NamedQuery(name = "Rol.findByIdRol", query = "SELECT r FROM Rol r WHERE r.idRol = :idRol")
+    , @NamedQuery(name = "Rol.findById", query = "SELECT r FROM Rol r WHERE r.id = :id")
     , @NamedQuery(name = "Rol.findByCargo", query = "SELECT r FROM Rol r WHERE r.cargo = :cargo")})
 public class Rol implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "idRol")
-    private Integer idRol;
+    @Column(name = "id")
+    private Integer id;
     @Basic(optional = false)
     @Column(name = "cargo")
     private String cargo;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rol")
-    private Collection<RolHasUsuario> rolHasUsuarioCollection;
-    @JoinColumn(name = "Usuario_idUsuario", referencedColumnName = "idUsuario")
-    @ManyToOne(optional = false)
-    private Usuario usuarioidUsuario;
+    @ManyToMany(mappedBy = "rolCollection")
+    private Collection<Usuario> usuarioCollection;
 
     public Rol() {
     }
 
-    public Rol(Integer idRol) {
-        this.idRol = idRol;
+    public Rol(Integer id) {
+        this.id = id;
     }
 
-    public Rol(Integer idRol, String cargo) {
-        this.idRol = idRol;
+    public Rol(Integer id, String cargo) {
+        this.id = id;
         this.cargo = cargo;
     }
 
-    public Integer getIdRol() {
-        return idRol;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdRol(Integer idRol) {
-        this.idRol = idRol;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getCargo() {
@@ -77,26 +71,18 @@ public class Rol implements Serializable {
     }
 
     @XmlTransient
-    public Collection<RolHasUsuario> getRolHasUsuarioCollection() {
-        return rolHasUsuarioCollection;
+    public Collection<Usuario> getUsuarioCollection() {
+        return usuarioCollection;
     }
 
-    public void setRolHasUsuarioCollection(Collection<RolHasUsuario> rolHasUsuarioCollection) {
-        this.rolHasUsuarioCollection = rolHasUsuarioCollection;
-    }
-
-    public Usuario getUsuarioidUsuario() {
-        return usuarioidUsuario;
-    }
-
-    public void setUsuarioidUsuario(Usuario usuarioidUsuario) {
-        this.usuarioidUsuario = usuarioidUsuario;
+    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
+        this.usuarioCollection = usuarioCollection;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idRol != null ? idRol.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -107,7 +93,7 @@ public class Rol implements Serializable {
             return false;
         }
         Rol other = (Rol) object;
-        if ((this.idRol == null && other.idRol != null) || (this.idRol != null && !this.idRol.equals(other.idRol))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -115,7 +101,7 @@ public class Rol implements Serializable {
 
     @Override
     public String toString() {
-        return "co.edu.usbbog.spmn.spmnws.model.Rol[ idRol=" + idRol + " ]";
+        return "co.edu.usbbog.spmn.spmnws.model.Rol[ id=" + id + " ]";
     }
     
 }

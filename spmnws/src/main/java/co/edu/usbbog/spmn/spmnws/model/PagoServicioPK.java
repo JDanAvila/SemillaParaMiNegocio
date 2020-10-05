@@ -15,33 +15,25 @@ import javax.persistence.Embeddable;
  * @author hp
  */
 @Embeddable
-public class InventarioPK implements Serializable {
+public class PagoServicioPK implements Serializable {
 
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	@Basic(optional = false)
-    @Column(name = "producto")
-    private int producto;
-    @Basic(optional = false)
     @Column(name = "tienda")
     private int tienda;
+    @Basic(optional = false)
+    @Column(name = "servicio")
+    private String servicio;
 
-    public InventarioPK() {
+    public PagoServicioPK() {
     }
 
-    public InventarioPK(int producto, int tienda) {
-        this.producto = producto;
+    public PagoServicioPK(int tienda, String servicio) {
         this.tienda = tienda;
-    }
-
-    public int getProducto() {
-        return producto;
-    }
-
-    public void setProducto(int producto) {
-        this.producto = producto;
+        this.servicio = servicio;
     }
 
     public int getTienda() {
@@ -52,25 +44,33 @@ public class InventarioPK implements Serializable {
         this.tienda = tienda;
     }
 
+    public String getServicio() {
+        return servicio;
+    }
+
+    public void setServicio(String servicio) {
+        this.servicio = servicio;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) producto;
         hash += (int) tienda;
+        hash += (servicio != null ? servicio.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof InventarioPK)) {
+        if (!(object instanceof PagoServicioPK)) {
             return false;
         }
-        InventarioPK other = (InventarioPK) object;
-        if (this.producto != other.producto) {
-            return false;
-        }
+        PagoServicioPK other = (PagoServicioPK) object;
         if (this.tienda != other.tienda) {
+            return false;
+        }
+        if ((this.servicio == null && other.servicio != null) || (this.servicio != null && !this.servicio.equals(other.servicio))) {
             return false;
         }
         return true;
@@ -78,7 +78,7 @@ public class InventarioPK implements Serializable {
 
     @Override
     public String toString() {
-        return "co.edu.usbbog.spmn.spmnws.model.InventarioPK[ producto=" + producto + ", tienda=" + tienda + " ]";
+        return "co.edu.usbbog.spmn.spmnws.model.PagoServicioPK[ tienda=" + tienda + ", servicio=" + servicio + " ]";
     }
     
 }

@@ -1,5 +1,6 @@
 package co.edu.usbbog.spmn.spmnws.controller;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,8 +16,63 @@ public class RolController {
 	private IRolService rolService;
 	
 	@PostMapping("/crearRol")
-	public String crearRol(@RequestBody Rol newRol) {
-		return rolService.crearRol(newRol);		
-	}
+    public String crearRol(@RequestBody Rol newRol) {
+        JSONObject respuesta= new JSONObject();
+        if(rolService.crearRol(newRol).equals("Se guardo el rol")) {
+            respuesta.put("respuesta", true);
+            return respuesta.toString();
+        }else {
+            respuesta.put("respuesta", false);
+            return respuesta.toString();
+        }
+    }
+	
+	@PostMapping("/eliminarRol")
+    public String eliminarRol(@RequestBody Rol deleteRol) {
+        JSONObject respuesta= new JSONObject();
+        if(rolService.eliminarRol(deleteRol).equals("Se elimino el rol")) {
+            respuesta.put("respuesta", true);
+            return respuesta.toString();
+        }else {
+            respuesta.put("respuesta", false);
+            return respuesta.toString();
+        }
+    }
+	
+	@PostMapping("/mostrarRol")
+    public String mostrarRol(@RequestBody Rol showRol) {
+        JSONObject respuesta= new JSONObject();
+        if(rolService.mostrarRol(showRol.getId()) != null) {
+            respuesta.put("respuesta", true);
+            return respuesta.toString();
+        }else {
+            respuesta.put("respuesta", false);
+            return respuesta.toString();
+        }
+    }
+	
+	@PostMapping("/modificarRol")
+    public String modificarRol(@RequestBody Rol editRol) {
+        JSONObject respuesta= new JSONObject();
+        if(rolService.modificarRol(editRol) != null)  {
+            respuesta.put("respuesta", true);
+            return respuesta.toString();
+        }else {
+            respuesta.put("respuesta", false);
+            return respuesta.toString();
+        }
+    }
+	
+	@PostMapping("/buscarCargo")
+    public String buscarNombre(@RequestBody String cargo) {
+        JSONObject respuesta= new JSONObject();
+        if(rolService.findByCargo(cargo)!=null) {
+            respuesta.put("respuesta", true);
+            return respuesta.toString();
+        }else {
+            respuesta.put("respuesta", false);
+            return respuesta.toString();
+        }
 
+    }
 }

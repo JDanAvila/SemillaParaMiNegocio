@@ -13,10 +13,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -30,61 +33,64 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
-    , @NamedQuery(name = "Usuario.findByIdUsuario", query = "SELECT u FROM Usuario u WHERE u.idUsuario = :idUsuario")
+    , @NamedQuery(name = "Usuario.findByCedula", query = "SELECT u FROM Usuario u WHERE u.cedula = :cedula")
     , @NamedQuery(name = "Usuario.findByNombre", query = "SELECT u FROM Usuario u WHERE u.nombre = :nombre")
     , @NamedQuery(name = "Usuario.findByCorreo", query = "SELECT u FROM Usuario u WHERE u.correo = :correo")
-    , @NamedQuery(name = "Usuario.findByContrase\u00f1a", query = "SELECT u FROM Usuario u WHERE u.contrase\u00f1a = :contrase\u00f1a")
-    , @NamedQuery(name = "Usuario.findByUtelefono", query = "SELECT u FROM Usuario u WHERE u.utelefono = :utelefono")})
+    , @NamedQuery(name = "Usuario.findByContrasena", query = "SELECT u FROM Usuario u WHERE u.contrasena = :contrasena")
+    , @NamedQuery(name = "Usuario.findByTelefono", query = "SELECT u FROM Usuario u WHERE u.telefono = :telefono")})
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "idUsuario")
-    private Integer idUsuario;
+    @Column(name = "cedula")
+    private Integer cedula;
     @Basic(optional = false)
-    @Column(name = "Nombre")
+    @Column(name = "nombre")
     private String nombre;
     @Basic(optional = false)
-    @Column(name = "Correo")
+    @Column(name = "correo")
     private String correo;
     @Basic(optional = false)
-    @Column(name = "Contrase\u00f1a")
-    private String contraseña;
+    @Column(name = "contrasena")
+    private String contrasena;
     @Basic(optional = false)
-    @Column(name = "U_telefono")
-    private String utelefono;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
-    private Collection<RolHasUsuario> rolHasUsuarioCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioidUsuario")
+    @Column(name = "telefono")
+    private int telefono;
+    @JoinTable(name = "usuario_rol", joinColumns = {
+        @JoinColumn(name = "usuario", referencedColumnName = "cedula")}, inverseJoinColumns = {
+        @JoinColumn(name = "rol", referencedColumnName = "id")})
+    @ManyToMany
     private Collection<Rol> rolCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioidUsuario")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
+    private Empleado empleado;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
     private Collection<FacturaVenta> facturaVentaCollection;
-    @JoinColumn(name = "Tienda_idTienda", referencedColumnName = "idTienda")
+    @JoinColumn(name = "tienda", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Tienda tiendaidTienda;
+    private Tienda tienda;
 
     public Usuario() {
     }
 
-    public Usuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
+    public Usuario(Integer cedula) {
+        this.cedula = cedula;
     }
 
-    public Usuario(Integer idUsuario, String nombre, String correo, String contraseña, String utelefono) {
-        this.idUsuario = idUsuario;
+    public Usuario(Integer cedula, String nombre, String correo, String contrasena, int telefono) {
+        this.cedula = cedula;
         this.nombre = nombre;
         this.correo = correo;
-        this.contraseña = contraseña;
-        this.utelefono = utelefono;
+        this.contrasena = contrasena;
+        this.telefono = telefono;
     }
 
-    public Integer getIdUsuario() {
-        return idUsuario;
+    public Integer getCedula() {
+        return cedula;
     }
 
-    public void setIdUsuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setCedula(Integer cedula) {
+        this.cedula = cedula;
     }
 
     public String getNombre() {
@@ -103,29 +109,20 @@ public class Usuario implements Serializable {
         this.correo = correo;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
-    public String getUtelefono() {
-        return utelefono;
+    public int getTelefono() {
+        return telefono;
     }
 
-    public void setUtelefono(String utelefono) {
-        this.utelefono = utelefono;
-    }
-
-    @XmlTransient
-    public Collection<RolHasUsuario> getRolHasUsuarioCollection() {
-        return rolHasUsuarioCollection;
-    }
-
-    public void setRolHasUsuarioCollection(Collection<RolHasUsuario> rolHasUsuarioCollection) {
-        this.rolHasUsuarioCollection = rolHasUsuarioCollection;
+    public void setTelefono(int telefono) {
+        this.telefono = telefono;
     }
 
     @XmlTransient
@@ -137,6 +134,14 @@ public class Usuario implements Serializable {
         this.rolCollection = rolCollection;
     }
 
+    public Empleado getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(Empleado empleado) {
+        this.empleado = empleado;
+    }
+
     @XmlTransient
     public Collection<FacturaVenta> getFacturaVentaCollection() {
         return facturaVentaCollection;
@@ -146,18 +151,18 @@ public class Usuario implements Serializable {
         this.facturaVentaCollection = facturaVentaCollection;
     }
 
-    public Tienda getTiendaidTienda() {
-        return tiendaidTienda;
+    public Tienda getTienda() {
+        return tienda;
     }
 
-    public void setTiendaidTienda(Tienda tiendaidTienda) {
-        this.tiendaidTienda = tiendaidTienda;
+    public void setTienda(Tienda tienda) {
+        this.tienda = tienda;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idUsuario != null ? idUsuario.hashCode() : 0);
+        hash += (cedula != null ? cedula.hashCode() : 0);
         return hash;
     }
 
@@ -168,7 +173,7 @@ public class Usuario implements Serializable {
             return false;
         }
         Usuario other = (Usuario) object;
-        if ((this.idUsuario == null && other.idUsuario != null) || (this.idUsuario != null && !this.idUsuario.equals(other.idUsuario))) {
+        if ((this.cedula == null && other.cedula != null) || (this.cedula != null && !this.cedula.equals(other.cedula))) {
             return false;
         }
         return true;
@@ -176,7 +181,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "co.edu.usbbog.spmn.spmnws.model.Usuario[ idUsuario=" + idUsuario + " ]";
+        return "co.edu.usbbog.spmn.spmnws.model.Usuario[ cedula=" + cedula + " ]";
     }
     
 }

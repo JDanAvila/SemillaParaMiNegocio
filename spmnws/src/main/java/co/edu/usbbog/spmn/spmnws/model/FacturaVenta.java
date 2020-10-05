@@ -6,18 +6,22 @@
 package co.edu.usbbog.spmn.spmnws.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -30,115 +34,127 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "FacturaVenta.findAll", query = "SELECT f FROM FacturaVenta f")
-    , @NamedQuery(name = "FacturaVenta.findByIdFactura", query = "SELECT f FROM FacturaVenta f WHERE f.idFactura = :idFactura")
-    , @NamedQuery(name = "FacturaVenta.findByFdescripcion", query = "SELECT f FROM FacturaVenta f WHERE f.fdescripcion = :fdescripcion")
-    , @NamedQuery(name = "FacturaVenta.findByFfecha", query = "SELECT f FROM FacturaVenta f WHERE f.ffecha = :ffecha")
-    , @NamedQuery(name = "FacturaVenta.findByCantidad", query = "SELECT f FROM FacturaVenta f WHERE f.cantidad = :cantidad")
-    , @NamedQuery(name = "FacturaVenta.findByTotal", query = "SELECT f FROM FacturaVenta f WHERE f.total = :total")})
+    , @NamedQuery(name = "FacturaVenta.findById", query = "SELECT f FROM FacturaVenta f WHERE f.id = :id")
+    , @NamedQuery(name = "FacturaVenta.findByFecha", query = "SELECT f FROM FacturaVenta f WHERE f.fecha = :fecha")
+    , @NamedQuery(name = "FacturaVenta.findByDescripcion", query = "SELECT f FROM FacturaVenta f WHERE f.descripcion = :descripcion")
+    , @NamedQuery(name = "FacturaVenta.findByTotalBruto", query = "SELECT f FROM FacturaVenta f WHERE f.totalBruto = :totalBruto")
+    , @NamedQuery(name = "FacturaVenta.findByImpuestos", query = "SELECT f FROM FacturaVenta f WHERE f.impuestos = :impuestos")
+    , @NamedQuery(name = "FacturaVenta.findByTotalPagar", query = "SELECT f FROM FacturaVenta f WHERE f.totalPagar = :totalPagar")})
 public class FacturaVenta implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "idFactura")
-    private Integer idFactura;
+    @Column(name = "id")
+    private Integer id;
     @Basic(optional = false)
-    @Column(name = "F_descripcion")
-    private String fdescripcion;
+    @Column(name = "fecha")
+    @Temporal(TemporalType.DATE)
+    private Date fecha;
     @Basic(optional = false)
-    @Column(name = "F_fecha")
-    private String ffecha;
+    @Column(name = "descripcion")
+    private String descripcion;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
-    @Column(name = "cantidad")
-    private int cantidad;
+    @Column(name = "total_bruto")
+    private BigDecimal totalBruto;
     @Basic(optional = false)
-    @Column(name = "total")
-    private int total;
-    @JoinTable(name = "factura_has_producto", joinColumns = {
-        @JoinColumn(name = "Factura_idFactura", referencedColumnName = "idFactura")}, inverseJoinColumns = {
-        @JoinColumn(name = "Producto_idProducto", referencedColumnName = "idProducto")})
-    @ManyToMany
-    private Collection<Producto> productoCollection;
-    @JoinColumn(name = "Usuario_idUsuario", referencedColumnName = "idUsuario")
+    @Column(name = "impuestos")
+    private BigDecimal impuestos;
+    @Basic(optional = false)
+    @Column(name = "total_pagar")
+    private BigDecimal totalPagar;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "facturaVenta1")
+    private Collection<CantVenta> cantVentaCollection;
+    @JoinColumn(name = "cliente", referencedColumnName = "cedula")
     @ManyToOne(optional = false)
-    private Usuario usuarioidUsuario;
+    private Usuario cliente;
 
     public FacturaVenta() {
     }
 
-    public FacturaVenta(Integer idFactura) {
-        this.idFactura = idFactura;
+    public FacturaVenta(Integer id) {
+        this.id = id;
     }
 
-    public FacturaVenta(Integer idFactura, String fdescripcion, String ffecha, int cantidad, int total) {
-        this.idFactura = idFactura;
-        this.fdescripcion = fdescripcion;
-        this.ffecha = ffecha;
-        this.cantidad = cantidad;
-        this.total = total;
+    public FacturaVenta(Integer id, Date fecha, String descripcion, BigDecimal totalBruto, BigDecimal impuestos, BigDecimal totalPagar) {
+        this.id = id;
+        this.fecha = fecha;
+        this.descripcion = descripcion;
+        this.totalBruto = totalBruto;
+        this.impuestos = impuestos;
+        this.totalPagar = totalPagar;
     }
 
-    public Integer getIdFactura() {
-        return idFactura;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdFactura(Integer idFactura) {
-        this.idFactura = idFactura;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getFdescripcion() {
-        return fdescripcion;
+    public Date getFecha() {
+        return fecha;
     }
 
-    public void setFdescripcion(String fdescripcion) {
-        this.fdescripcion = fdescripcion;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
-    public String getFfecha() {
-        return ffecha;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setFfecha(String ffecha) {
-        this.ffecha = ffecha;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public int getCantidad() {
-        return cantidad;
+    public BigDecimal getTotalBruto() {
+        return totalBruto;
     }
 
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
+    public void setTotalBruto(BigDecimal totalBruto) {
+        this.totalBruto = totalBruto;
     }
 
-    public int getTotal() {
-        return total;
+    public BigDecimal getImpuestos() {
+        return impuestos;
     }
 
-    public void setTotal(int total) {
-        this.total = total;
+    public void setImpuestos(BigDecimal impuestos) {
+        this.impuestos = impuestos;
+    }
+
+    public BigDecimal getTotalPagar() {
+        return totalPagar;
+    }
+
+    public void setTotalPagar(BigDecimal totalPagar) {
+        this.totalPagar = totalPagar;
     }
 
     @XmlTransient
-    public Collection<Producto> getProductoCollection() {
-        return productoCollection;
+    public Collection<CantVenta> getCantVentaCollection() {
+        return cantVentaCollection;
     }
 
-    public void setProductoCollection(Collection<Producto> productoCollection) {
-        this.productoCollection = productoCollection;
+    public void setCantVentaCollection(Collection<CantVenta> cantVentaCollection) {
+        this.cantVentaCollection = cantVentaCollection;
     }
 
-    public Usuario getUsuarioidUsuario() {
-        return usuarioidUsuario;
+    public Usuario getCliente() {
+        return cliente;
     }
 
-    public void setUsuarioidUsuario(Usuario usuarioidUsuario) {
-        this.usuarioidUsuario = usuarioidUsuario;
+    public void setCliente(Usuario cliente) {
+        this.cliente = cliente;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idFactura != null ? idFactura.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -149,7 +165,7 @@ public class FacturaVenta implements Serializable {
             return false;
         }
         FacturaVenta other = (FacturaVenta) object;
-        if ((this.idFactura == null && other.idFactura != null) || (this.idFactura != null && !this.idFactura.equals(other.idFactura))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -157,7 +173,7 @@ public class FacturaVenta implements Serializable {
 
     @Override
     public String toString() {
-        return "co.edu.usbbog.spmn.spmnws.model.FacturaVenta[ idFactura=" + idFactura + " ]";
+        return "co.edu.usbbog.spmn.spmnws.model.FacturaVenta[ id=" + id + " ]";
     }
     
 }

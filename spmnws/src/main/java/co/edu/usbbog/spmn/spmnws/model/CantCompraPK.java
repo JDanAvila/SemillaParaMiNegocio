@@ -15,7 +15,7 @@ import javax.persistence.Embeddable;
  * @author hp
  */
 @Embeddable
-public class InventarioPK implements Serializable {
+public class CantCompraPK implements Serializable {
 
     /**
 	 * 
@@ -25,15 +25,15 @@ public class InventarioPK implements Serializable {
     @Column(name = "producto")
     private int producto;
     @Basic(optional = false)
-    @Column(name = "tienda")
-    private int tienda;
+    @Column(name = "recibo")
+    private int recibo;
 
-    public InventarioPK() {
+    public CantCompraPK() {
     }
 
-    public InventarioPK(int producto, int tienda) {
+    public CantCompraPK(int producto, int recibo) {
         this.producto = producto;
-        this.tienda = tienda;
+        this.recibo = recibo;
     }
 
     public int getProducto() {
@@ -44,33 +44,33 @@ public class InventarioPK implements Serializable {
         this.producto = producto;
     }
 
-    public int getTienda() {
-        return tienda;
+    public int getRecibo() {
+        return recibo;
     }
 
-    public void setTienda(int tienda) {
-        this.tienda = tienda;
+    public void setRecibo(int recibo) {
+        this.recibo = recibo;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (int) producto;
-        hash += (int) tienda;
+        hash += (int) recibo;
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof InventarioPK)) {
+        if (!(object instanceof CantCompraPK)) {
             return false;
         }
-        InventarioPK other = (InventarioPK) object;
+        CantCompraPK other = (CantCompraPK) object;
         if (this.producto != other.producto) {
             return false;
         }
-        if (this.tienda != other.tienda) {
+        if (this.recibo != other.recibo) {
             return false;
         }
         return true;
@@ -78,7 +78,7 @@ public class InventarioPK implements Serializable {
 
     @Override
     public String toString() {
-        return "co.edu.usbbog.spmn.spmnws.model.InventarioPK[ producto=" + producto + ", tienda=" + tienda + " ]";
+        return "co.edu.usbbog.spmn.spmnws.model.CantCompraPK[ producto=" + producto + ", recibo=" + recibo + " ]";
     }
     
 }

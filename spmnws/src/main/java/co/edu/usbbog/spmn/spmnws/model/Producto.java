@@ -6,13 +6,13 @@
 package co.edu.usbbog.spmn.spmnws.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -29,56 +29,74 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Producto.findAll", query = "SELECT p FROM Producto p")
-    , @NamedQuery(name = "Producto.findByIdProducto", query = "SELECT p FROM Producto p WHERE p.idProducto = :idProducto")
+    , @NamedQuery(name = "Producto.findById", query = "SELECT p FROM Producto p WHERE p.id = :id")
     , @NamedQuery(name = "Producto.findByNombre", query = "SELECT p FROM Producto p WHERE p.nombre = :nombre")
-    , @NamedQuery(name = "Producto.findByPdescripcion", query = "SELECT p FROM Producto p WHERE p.pdescripcion = :pdescripcion")
-    , @NamedQuery(name = "Producto.findByCantidad", query = "SELECT p FROM Producto p WHERE p.cantidad = :cantidad")
-    , @NamedQuery(name = "Producto.findByCosto", query = "SELECT p FROM Producto p WHERE p.costo = :costo")})
+    , @NamedQuery(name = "Producto.findByTamano", query = "SELECT p FROM Producto p WHERE p.tamano = :tamano")
+    , @NamedQuery(name = "Producto.findByPresentacion", query = "SELECT p FROM Producto p WHERE p.presentacion = :presentacion")
+    , @NamedQuery(name = "Producto.findByUnidadMedida", query = "SELECT p FROM Producto p WHERE p.unidadMedida = :unidadMedida")
+    , @NamedQuery(name = "Producto.findByDescripcion", query = "SELECT p FROM Producto p WHERE p.descripcion = :descripcion")
+    , @NamedQuery(name = "Producto.findByCosto", query = "SELECT p FROM Producto p WHERE p.costo = :costo")
+    , @NamedQuery(name = "Producto.findByPrecio", query = "SELECT p FROM Producto p WHERE p.precio = :precio")})
 public class Producto implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "idProducto")
-    private Integer idProducto;
+    @Column(name = "id")
+    private Integer id;
     @Basic(optional = false)
-    @Column(name = "Nombre")
+    @Column(name = "nombre")
     private String nombre;
     @Basic(optional = false)
-    @Column(name = "P_descripcion")
-    private String pdescripcion;
+    @Column(name = "tamano")
+    private String tamano;
     @Basic(optional = false)
-    @Column(name = "Cantidad")
-    private String cantidad;
+    @Column(name = "presentacion")
+    private String presentacion;
     @Basic(optional = false)
-    @Column(name = "Costo")
-    private String costo;
-    @ManyToMany(mappedBy = "productoCollection")
-    private Collection<FacturaVenta> facturaVentaCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "producto")
+    @Column(name = "unidad_medida")
+    private String unidadMedida;
+    @Basic(optional = false)
+    @Column(name = "descripcion")
+    private String descripcion;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Basic(optional = false)
+    @Column(name = "costo")
+    private BigDecimal costo;
+    @Basic(optional = false)
+    @Column(name = "precio")
+    private BigDecimal precio;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "producto1")
+    private Collection<CantVenta> cantVentaCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "producto1")
+    private Collection<CantCompra> cantCompraCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "producto1")
     private Collection<Inventario> inventarioCollection;
 
     public Producto() {
     }
 
-    public Producto(Integer idProducto) {
-        this.idProducto = idProducto;
+    public Producto(Integer id) {
+        this.id = id;
     }
 
-    public Producto(Integer idProducto, String nombre, String pdescripcion, String cantidad, String costo) {
-        this.idProducto = idProducto;
+    public Producto(Integer id, String nombre, String tamano, String presentacion, String unidadMedida, String descripcion, BigDecimal costo, BigDecimal precio) {
+        this.id = id;
         this.nombre = nombre;
-        this.pdescripcion = pdescripcion;
-        this.cantidad = cantidad;
+        this.tamano = tamano;
+        this.presentacion = presentacion;
+        this.unidadMedida = unidadMedida;
+        this.descripcion = descripcion;
         this.costo = costo;
+        this.precio = precio;
     }
 
-    public Integer getIdProducto() {
-        return idProducto;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdProducto(Integer idProducto) {
-        this.idProducto = idProducto;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -89,37 +107,70 @@ public class Producto implements Serializable {
         this.nombre = nombre;
     }
 
-    public String getPdescripcion() {
-        return pdescripcion;
+    public String getTamano() {
+        return tamano;
     }
 
-    public void setPdescripcion(String pdescripcion) {
-        this.pdescripcion = pdescripcion;
+    public void setTamano(String tamano) {
+        this.tamano = tamano;
     }
 
-    public String getCantidad() {
-        return cantidad;
+    public String getPresentacion() {
+        return presentacion;
     }
 
-    public void setCantidad(String cantidad) {
-        this.cantidad = cantidad;
+    public void setPresentacion(String presentacion) {
+        this.presentacion = presentacion;
     }
 
-    public String getCosto() {
+    public String getUnidadMedida() {
+        return unidadMedida;
+    }
+
+    public void setUnidadMedida(String unidadMedida) {
+        this.unidadMedida = unidadMedida;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public BigDecimal getCosto() {
         return costo;
     }
 
-    public void setCosto(String costo) {
+    public void setCosto(BigDecimal costo) {
         this.costo = costo;
     }
 
-    @XmlTransient
-    public Collection<FacturaVenta> getFacturaVentaCollection() {
-        return facturaVentaCollection;
+    public BigDecimal getPrecio() {
+        return precio;
     }
 
-    public void setFacturaVentaCollection(Collection<FacturaVenta> facturaVentaCollection) {
-        this.facturaVentaCollection = facturaVentaCollection;
+    public void setPrecio(BigDecimal precio) {
+        this.precio = precio;
+    }
+
+    @XmlTransient
+    public Collection<CantVenta> getCantVentaCollection() {
+        return cantVentaCollection;
+    }
+
+    public void setCantVentaCollection(Collection<CantVenta> cantVentaCollection) {
+        this.cantVentaCollection = cantVentaCollection;
+    }
+
+    @XmlTransient
+    public Collection<CantCompra> getCantCompraCollection() {
+        return cantCompraCollection;
+    }
+
+    public void setCantCompraCollection(Collection<CantCompra> cantCompraCollection) {
+        this.cantCompraCollection = cantCompraCollection;
     }
 
     @XmlTransient
@@ -134,7 +185,7 @@ public class Producto implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idProducto != null ? idProducto.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -145,7 +196,7 @@ public class Producto implements Serializable {
             return false;
         }
         Producto other = (Producto) object;
-        if ((this.idProducto == null && other.idProducto != null) || (this.idProducto != null && !this.idProducto.equals(other.idProducto))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -153,7 +204,7 @@ public class Producto implements Serializable {
 
     @Override
     public String toString() {
-        return "co.edu.usbbog.spmn.spmnws.model.Producto[ idProducto=" + idProducto + " ]";
+        return "co.edu.usbbog.spmn.spmnws.model.Producto[ id=" + id + " ]";
     }
     
 }
