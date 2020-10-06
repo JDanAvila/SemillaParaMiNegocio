@@ -2,7 +2,9 @@ package co.edu.usbbog.spmn.spmnws.controller;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,9 +29,19 @@ public class RolController {
         }
     }
 	
-	@PostMapping("/eliminarRol")
+	@DeleteMapping("/eliminarRol")
     public String eliminarRol(@RequestBody Rol deleteRol) {
         JSONObject respuesta= new JSONObject();
+        String devolucion=rolService.eliminarRol(deleteRol);
+        switch (devolucion) {
+        case "Se elimino el rol":
+        	respuesta.put("respuesta", true);
+            return respuesta.toString();
+            
+        case "El rol no existe":
+        	respuesta.put("respuesta", false);
+            return respuesta.toString();
+        }
         if(rolService.eliminarRol(deleteRol).equals("Se elimino el rol")) {
             respuesta.put("respuesta", true);
             return respuesta.toString();
@@ -51,7 +63,7 @@ public class RolController {
         }
     }
 	
-	@PostMapping("/modificarRol")
+	@PutMapping("/modificarRol")
     public String modificarRol(@RequestBody Rol editRol) {
         JSONObject respuesta= new JSONObject();
         if(rolService.modificarRol(editRol) != null)  {

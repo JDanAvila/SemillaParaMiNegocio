@@ -29,8 +29,12 @@ public class RolService implements IRolService {
 	@Override
 	public String eliminarRol(Rol rol) {
 		try {
+			if (rolRepo.existsById(rol.getId())) {
 			rolRepo.delete(rol);
 			return "Se elimino el rol";
+			}else {
+				return "El rol no existe";
+			}
 		} catch (IllegalArgumentException e) {
 			return "No se elimino el rol: " + e.getMessage();
 		}
