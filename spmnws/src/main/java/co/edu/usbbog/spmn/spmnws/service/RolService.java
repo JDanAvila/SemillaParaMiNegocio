@@ -44,7 +44,7 @@ public class RolService implements IRolService {
 	@Override
 	public String modificarRol(Rol rol) {
 		try {
-			if(mostrarRol(rol.getId()) != null) {
+			if(rolRepo.existsById(rol.getId())) {
 				rolRepo.delete(rol);
 				rolRepo.save(rol);
 				return "Se modifico el rol";
@@ -68,27 +68,19 @@ public class RolService implements IRolService {
 	}
 
 	@Override
-	public List<Rol> findByCargo(String cargo) {
-		List<Rol> listaRol = new ArrayList<Rol>();
-		try {
-			for (int i = 0; i < listaRol.size(); i++) {
-				listaRol.addAll(rolRepo.findByCargo(cargo));
-			}
-			return listaRol;
-		} catch (IllegalArgumentException e) {
-			return listaRol;
-		}
-	}
-
-	@Override
 	public Rol mostrarRol(int id) {
-		Rol r = new Rol();
+		Rol rol = new Rol();
 		try {
-			r = rolRepo.getOne(id);
-			return r;
+			if(rolRepo.existsById(id)) {				
+				rol = rolRepo.getOne(id);
+				return rol;
+			}else {
+				return null;
+			}
 		} catch (IllegalArgumentException e) {
-			return r;
+			rol = null;
 		}
+		return rol;
 	}
 
 	@Override
