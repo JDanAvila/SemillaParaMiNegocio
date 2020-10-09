@@ -11,7 +11,6 @@ public interface IRolService {
 	public String eliminarRol(Rol rol);
 	public String modificarRol(Rol rol);
 	public int contarRol();
-	public List<Rol> findByCargo(String cargo);
     public Rol mostrarRol(int id);
     public List<Rol> findAll();
 }
