@@ -38,10 +38,10 @@ public class CantVenta implements Serializable {
     @Column(name = "cantidad")
     private int cantidad;
     @JoinColumn(name = "factura_venta", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     private FacturaVenta facturaVenta1;
     @JoinColumn(name = "producto", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     private Producto producto1;
 
     public CantVenta() {

@@ -65,7 +65,7 @@ public class Empleado implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fechaSalida;
     @JoinColumn(name = "cedula", referencedColumnName = "cedula", insertable = false, updatable = false)
-    @OneToOne(optional = false)
+    @OneToOne(optional = true)
     private Usuario usuario;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "empleado")
     private Collection<PagoNomina> pagoNominaCollection;
