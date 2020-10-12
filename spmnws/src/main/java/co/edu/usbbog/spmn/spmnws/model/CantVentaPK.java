@@ -17,13 +17,9 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class CantVentaPK implements Serializable {
 
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	@Basic(optional = false)
-    @Column(name = "factura_venta")
-    private int facturaVenta;
+    @Basic(optional = false)
+    @Column(name = "factura")
+    private int factura;
     @Basic(optional = false)
     @Column(name = "producto")
     private int producto;
@@ -31,17 +27,17 @@ public class CantVentaPK implements Serializable {
     public CantVentaPK() {
     }
 
-    public CantVentaPK(int facturaVenta, int producto) {
-        this.facturaVenta = facturaVenta;
+    public CantVentaPK(int factura, int producto) {
+        this.factura = factura;
         this.producto = producto;
     }
 
-    public int getFacturaVenta() {
-        return facturaVenta;
+    public int getFactura() {
+        return factura;
     }
 
-    public void setFacturaVenta(int facturaVenta) {
-        this.facturaVenta = facturaVenta;
+    public void setFactura(int factura) {
+        this.factura = factura;
     }
 
     public int getProducto() {
@@ -55,7 +51,7 @@ public class CantVentaPK implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) facturaVenta;
+        hash += (int) factura;
         hash += (int) producto;
         return hash;
     }
@@ -67,7 +63,7 @@ public class CantVentaPK implements Serializable {
             return false;
         }
         CantVentaPK other = (CantVentaPK) object;
-        if (this.facturaVenta != other.facturaVenta) {
+        if (this.factura != other.factura) {
             return false;
         }
         if (this.producto != other.producto) {
@@ -78,7 +74,7 @@ public class CantVentaPK implements Serializable {
 
     @Override
     public String toString() {
-        return "co.edu.usbbog.spmn.spmnws.model.CantVentaPK[ facturaVenta=" + facturaVenta + ", producto=" + producto + " ]";
+        return "co.edu.usbbog.spmn.spmnws.model.CantVentaPK[ factura=" + factura + ", producto=" + producto + " ]";
     }
     
 }

@@ -17,11 +17,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class CantCompraPK implements Serializable {
 
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	@Basic(optional = false)
+    @Basic(optional = false)
     @Column(name = "producto")
     private int producto;
     @Basic(optional = false)

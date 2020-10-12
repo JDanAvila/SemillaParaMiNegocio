@@ -17,11 +17,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class PagoServicioPK implements Serializable {
 
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	@Basic(optional = false)
+    @Basic(optional = false)
     @Column(name = "tienda")
     private int tienda;
     @Basic(optional = false)

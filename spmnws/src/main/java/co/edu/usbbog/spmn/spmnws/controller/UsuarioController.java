@@ -9,19 +9,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.edu.usbbog.spmn.spmnws.model.Rol;
-import co.edu.usbbog.spmn.spmnws.service.IRolService;
+import co.edu.usbbog.spmn.spmnws.model.Usuario;
+import co.edu.usbbog.spmn.spmnws.service.IUsuarioService;
 
 @RestController
-public class RolController {
+public class UsuarioController {
 	
 	@Autowired
-	private IRolService rolService;
+	private IUsuarioService userService;
 	
-	@PostMapping("/crearRol")
-    public String crearRol(@RequestBody Rol newRol) {
+	@PostMapping("/crearUsuario")
+    public String crearRol(@RequestBody Usuario newUser) {
         JSONObject respuesta= new JSONObject();
-        if(rolService.crearRol(newRol).equals("Se guardo el rol")) {
+        if(userService.crearUsuario(newUser).equals("Se guardo el rol")) {
             respuesta.put("respuesta", true);
             return respuesta.toString();
         }else {
@@ -30,10 +30,10 @@ public class RolController {
         }
     }
 	
-	@PostMapping("/eliminarRol")
-    public String eliminarRol(@RequestBody Rol deleteRol) {
+	@PostMapping("/eliminarUsuario")
+    public String eliminarRol(@RequestBody Usuario deleteUser) {
 		JSONObject respuesta= new JSONObject();
-		if(rolService.eliminarRol(deleteRol).equals("Se elimino el rol")) {
+		if(userService.eliminarUsuario(deleteUser).equals("Se elimino el usuario")) {
 			respuesta.put("respuesta", true);
 			return respuesta.toString();
 		}else {
@@ -42,14 +42,14 @@ public class RolController {
 		}
     }
 	
-	@PostMapping("/mostrarRol")
-    public String buscarRol(@RequestBody Rol rol) {
+	@PostMapping("/mostrarUsuario")
+    public String buscarRol(@RequestBody Usuario user) {
         JSONArray array = new JSONArray();
-        Rol roles = rolService.mostrarRol(rol.getId());
+        Usuario roles = userService.mostrarRol(user.getCedula());
         if (roles != null) {
             JSONObject rolJson = new JSONObject();
-            rolJson.put("id", roles.getId());
-            rolJson.put("cargo", roles.getCargo());
+            rolJson.put("id", roles.getCedula());
+            rolJson.put("nombre", roles.getNombre());
             array.put(rolJson);
             return array.toString();
         } else {
@@ -58,10 +58,10 @@ public class RolController {
 
     }
 	
-	@PostMapping("/modificarRol")
-	public String modificarRol(@RequestBody Rol editRol) {
+	@PostMapping("/modificarUsuario")
+	public String modificarRol(@RequestBody Usuario editUser) {
 		JSONObject respuesta= new JSONObject();
-		if(rolService.modificarRol(editRol).equals("Se modifico el rol")) {
+		if(userService.modificarUsuario(editUser).equals("Se modifico el usuario")) {
 			respuesta.put("respuesta", true);
 			return respuesta.toString();
 		}else {
@@ -71,22 +71,22 @@ public class RolController {
 		
 	}
 	
-	@PostMapping("/contarRol")
+	@PostMapping("/contarUsuario")
 	public String contarRol() {
 		JSONObject respuesta= new JSONObject();
-			int aux=rolService.contarRol();
+			int aux=userService.contarUsuario();
 			respuesta.put("Count", aux);
 			return respuesta.toString();		
 	}
 	
-	@PostMapping("/allRoles")
+	@PostMapping("/allUsuarios")
 	public String getRoles() {
 		JSONArray array= new JSONArray();
-		List<Rol> roles=rolService.findAll();
+		List<Usuario> roles=userService.findAll();
 		for (int i = 0; i < roles.size(); i++) {
 			JSONObject rolJson= new JSONObject();
-			rolJson.put("id", roles.get(i).getId());
-			rolJson.put("cargo", roles.get(i).getCargo());
+			rolJson.put("id", roles.get(i).getCedula());
+			rolJson.put("cargo", roles.get(i).getNombre());
 			array.put(rolJson);			
 		}
 		return array.toString();		

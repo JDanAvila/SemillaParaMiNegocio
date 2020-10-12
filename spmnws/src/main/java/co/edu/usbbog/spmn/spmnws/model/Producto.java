@@ -54,7 +54,7 @@ public class Producto implements Serializable {
     @Column(name = "presentacion")
     private String presentacion;
     @Basic(optional = false)
-    @Column(name = "unidad_medida")
+    @Column(name = "unidadMedida")
     private String unidadMedida;
     @Basic(optional = false)
     @Column(name = "descripcion")
