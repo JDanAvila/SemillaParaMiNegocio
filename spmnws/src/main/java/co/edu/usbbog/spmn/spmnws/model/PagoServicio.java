@@ -45,16 +45,16 @@ public class PagoServicio implements Serializable {
     @Column(name = "precio")
     private BigDecimal precio;
     @Basic(optional = false)
-    @Column(name = "fechaLimite")
+    @Column(name = "fecha_limite")
     @Temporal(TemporalType.DATE)
     private Date fechaLimite;
-    @Column(name = "fechaPago")
+    @Column(name = "fecha_pago")
     @Temporal(TemporalType.DATE)
     private Date fechaPago;
     @JoinColumn(name = "tienda", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Tienda tienda1;
-    @JoinColumn(name = "servicio", referencedColumnName = "nombre", insertable = false, updatable = false)
+    @JoinColumn(name = "servicio", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Servicio servicio1;
 
@@ -71,7 +71,7 @@ public class PagoServicio implements Serializable {
         this.fechaLimite = fechaLimite;
     }
 
-    public PagoServicio(int tienda, String servicio) {
+    public PagoServicio(int tienda, int servicio) {
         this.pagoServicioPK = new PagoServicioPK(tienda, servicio);
     }
 

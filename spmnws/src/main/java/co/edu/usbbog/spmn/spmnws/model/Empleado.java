@@ -49,7 +49,7 @@ public class Empleado implements Serializable {
     private Integer cedula;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
-    @Column(name = "sueldoBasico")
+    @Column(name = "sueldo_basico")
     private BigDecimal sueldoBasico;
     @Basic(optional = false)
     @Column(name = "arl")
@@ -58,16 +58,16 @@ public class Empleado implements Serializable {
     @Column(name = "eps")
     private BigDecimal eps;
     @Basic(optional = false)
-    @Column(name = "fechaIngreso")
+    @Column(name = "fecha_ingreso")
     @Temporal(TemporalType.DATE)
     private Date fechaIngreso;
-    @Column(name = "fechaSalida")
+    @Column(name = "fecha_salida")
     @Temporal(TemporalType.DATE)
     private Date fechaSalida;
     @JoinColumn(name = "cedula", referencedColumnName = "cedula", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Usuario usuario;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "empleado1")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "empleado")
     private Collection<PagoNomina> pagoNominaCollection;
 
     public Empleado() {

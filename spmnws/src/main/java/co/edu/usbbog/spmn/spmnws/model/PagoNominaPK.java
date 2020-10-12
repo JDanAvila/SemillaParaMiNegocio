@@ -17,42 +17,46 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class PagoNominaPK implements Serializable {
 
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Basic(optional = false)
+    @Column(name = "empleado_cedula")
+    private int empleadoCedula;
     @Basic(optional = false)
-    @Column(name = "empleado")
-    private int empleado;
-    @Basic(optional = false)
-    @Column(name = "tienda")
-    private int tienda;
+    @Column(name = "tienda_id")
+    private int tiendaId;
 
     public PagoNominaPK() {
     }
 
-    public PagoNominaPK(int empleado, int tienda) {
-        this.empleado = empleado;
-        this.tienda = tienda;
+    public PagoNominaPK(int empleadoCedula, int tiendaId) {
+        this.empleadoCedula = empleadoCedula;
+        this.tiendaId = tiendaId;
     }
 
-    public int getEmpleado() {
-        return empleado;
+    public int getEmpleadoCedula() {
+        return empleadoCedula;
     }
 
-    public void setEmpleado(int empleado) {
-        this.empleado = empleado;
+    public void setEmpleadoCedula(int empleadoCedula) {
+        this.empleadoCedula = empleadoCedula;
     }
 
-    public int getTienda() {
-        return tienda;
+    public int getTiendaId() {
+        return tiendaId;
     }
 
-    public void setTienda(int tienda) {
-        this.tienda = tienda;
+    public void setTiendaId(int tiendaId) {
+        this.tiendaId = tiendaId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) empleado;
-        hash += (int) tienda;
+        hash += (int) empleadoCedula;
+        hash += (int) tiendaId;
         return hash;
     }
 
@@ -63,10 +67,10 @@ public class PagoNominaPK implements Serializable {
             return false;
         }
         PagoNominaPK other = (PagoNominaPK) object;
-        if (this.empleado != other.empleado) {
+        if (this.empleadoCedula != other.empleadoCedula) {
             return false;
         }
-        if (this.tienda != other.tienda) {
+        if (this.tiendaId != other.tiendaId) {
             return false;
         }
         return true;
@@ -74,7 +78,7 @@ public class PagoNominaPK implements Serializable {
 
     @Override
     public String toString() {
-        return "co.edu.usbbog.spmn.spmnws.model.PagoNominaPK[ empleado=" + empleado + ", tienda=" + tienda + " ]";
+        return "co.edu.usbbog.spmn.spmnws.model.PagoNominaPK[ empleadoCedula=" + empleadoCedula + ", tiendaId=" + tiendaId + " ]";
     }
     
 }

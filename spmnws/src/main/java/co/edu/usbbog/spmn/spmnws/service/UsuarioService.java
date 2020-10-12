@@ -19,9 +19,9 @@ public class UsuarioService implements IUsuarioService {
 	public String crearUsuario(Usuario user) {
 		try {
 			userRepo.save(user);
-			return "Se guardo el rol";
+			return "Se guardo el usuario";
 		} catch (IllegalArgumentException e) {
-			return "No se guardo el rol: " + e.getMessage();
+			return "No se guardo el usuario: " + e.getMessage();
 		}
 	}
 
@@ -32,10 +32,10 @@ public class UsuarioService implements IUsuarioService {
 				userRepo.delete(user);
 				return "Se elimino el rol";
 			}else {
-				return "El rol no existe";
+				return "El usuario no existe";
 			}
 		} catch (IllegalArgumentException e) {
-			return "No se elimino el rol: " + e.getMessage();
+			return "No se elimino el usuario: " + e.getMessage();
 		}
 	}
 
@@ -46,12 +46,12 @@ public class UsuarioService implements IUsuarioService {
 			if(userRepo.existsById(user.getCedula())) {
 				userRepo.delete(user);
 				userRepo.save(user);
-				return "Se modifico el rol";
+				return "Se modifico el usuario";
 			}else {
-				return "No se encontro el rol";
+				return "No se encontro el usuario";
 			}
 		} catch (IllegalArgumentException e) {
-			return "No se encontro el rol: " + e.getMessage();
+			return "No se encontro el usuario: " + e.getMessage();
 		}
 	}
 
@@ -67,11 +67,11 @@ public class UsuarioService implements IUsuarioService {
 	}
 
 	@Override
-	public Usuario mostrarRol(int id) {
+	public Usuario mostrarUsuario(int cc) {
 		Usuario user = new Usuario();
 		try {
-			if(userRepo.existsById(id)) {				
-				user = userRepo.getOne(id);
+			if(userRepo.existsById(cc)) {				
+				user = userRepo.getOne(cc);
 				return user;
 			}else {
 				return null;
@@ -84,12 +84,12 @@ public class UsuarioService implements IUsuarioService {
 
 	@Override
 	public List<Usuario> findAll() {
-		List<Usuario> listaRol = new ArrayList<Usuario>();
+		List<Usuario> listaUsuario = new ArrayList<Usuario>();
 		try {
-			listaRol = userRepo.findAll();
-			return listaRol;
+			listaUsuario = userRepo.findAll();
+			return listaUsuario;
 		} catch (IllegalArgumentException e) {
-			return listaRol;
+			return listaUsuario;
 		}
 	}
 	

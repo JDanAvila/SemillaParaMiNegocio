@@ -21,7 +21,7 @@ public class UsuarioController {
 	@PostMapping("/crearUsuario")
     public String crearRol(@RequestBody Usuario newUser) {
         JSONObject respuesta= new JSONObject();
-        if(userService.crearUsuario(newUser).equals("Se guardo el rol")) {
+        if(userService.crearUsuario(newUser).equals("Se guardo el usuario")) {
             respuesta.put("respuesta", true);
             return respuesta.toString();
         }else {
@@ -31,7 +31,7 @@ public class UsuarioController {
     }
 	
 	@PostMapping("/eliminarUsuario")
-    public String eliminarRol(@RequestBody Usuario deleteUser) {
+    public String eliminarUsuario(@RequestBody Usuario deleteUser) {
 		JSONObject respuesta= new JSONObject();
 		if(userService.eliminarUsuario(deleteUser).equals("Se elimino el usuario")) {
 			respuesta.put("respuesta", true);
@@ -43,14 +43,18 @@ public class UsuarioController {
     }
 	
 	@PostMapping("/mostrarUsuario")
-    public String buscarRol(@RequestBody Usuario user) {
+    public String buscarUsuario(@RequestBody Usuario user) {
         JSONArray array = new JSONArray();
-        Usuario roles = userService.mostrarRol(user.getCedula());
-        if (roles != null) {
-            JSONObject rolJson = new JSONObject();
-            rolJson.put("id", roles.getCedula());
-            rolJson.put("nombre", roles.getNombre());
-            array.put(rolJson);
+        Usuario usuarios = userService.mostrarUsuario(user.getCedula());
+        if (usuarios != null) {
+            JSONObject usuarioJson = new JSONObject();
+            usuarioJson.put("cedula", usuarios.getCedula());
+            usuarioJson.put("nombre", usuarios.getNombre());
+            usuarioJson.put("correo", usuarios.getCorreo());
+            usuarioJson.put("contrasena", usuarios.getContrasena());
+            usuarioJson.put("telefono", usuarios.getTelefono());
+            usuarioJson.put("tienda", usuarios.getTienda());
+            array.put(usuarioJson);
             return array.toString();
         } else {
             return "No se encontro";
@@ -59,7 +63,7 @@ public class UsuarioController {
     }
 	
 	@PostMapping("/modificarUsuario")
-	public String modificarRol(@RequestBody Usuario editUser) {
+	public String modificarUsuario(@RequestBody Usuario editUser) {
 		JSONObject respuesta= new JSONObject();
 		if(userService.modificarUsuario(editUser).equals("Se modifico el usuario")) {
 			respuesta.put("respuesta", true);
@@ -72,7 +76,7 @@ public class UsuarioController {
 	}
 	
 	@PostMapping("/contarUsuario")
-	public String contarRol() {
+	public String contarUsuario() {
 		JSONObject respuesta= new JSONObject();
 			int aux=userService.contarUsuario();
 			respuesta.put("Count", aux);
@@ -80,14 +84,18 @@ public class UsuarioController {
 	}
 	
 	@PostMapping("/allUsuarios")
-	public String getRoles() {
+	public String getUsuarios() {
 		JSONArray array= new JSONArray();
-		List<Usuario> roles=userService.findAll();
-		for (int i = 0; i < roles.size(); i++) {
-			JSONObject rolJson= new JSONObject();
-			rolJson.put("id", roles.get(i).getCedula());
-			rolJson.put("cargo", roles.get(i).getNombre());
-			array.put(rolJson);			
+		List<Usuario> usuarios=userService.findAll();
+		for (int i = 0; i < usuarios.size(); i++) {
+			JSONObject usuarioJson= new JSONObject();
+			usuarioJson.put("cedula", usuarios.get(i).getCedula());
+			usuarioJson.put("nombre", usuarios.get(i).getNombre());
+			usuarioJson.put("correo", usuarios.get(i).getCorreo());
+			usuarioJson.put("contrasena", usuarios.get(i).getContrasena());
+			usuarioJson.put("telefono", usuarios.get(i).getTelefono());
+			usuarioJson.put("tienda", usuarios.get(i).getTienda());			
+			array.put(usuarioJson);			
 		}
 		return array.toString();		
 	}

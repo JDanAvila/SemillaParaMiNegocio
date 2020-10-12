@@ -56,15 +56,15 @@ public class FacturaVenta implements Serializable {
     private String descripcion;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
-    @Column(name = "totalBruto")
+    @Column(name = "total_bruto")
     private BigDecimal totalBruto;
     @Basic(optional = false)
     @Column(name = "impuestos")
     private BigDecimal impuestos;
     @Basic(optional = false)
-    @Column(name = "totalPagar")
+    @Column(name = "total_pagar")
     private BigDecimal totalPagar;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "facturaVenta")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "facturaVenta1")
     private Collection<CantVenta> cantVentaCollection;
     @JoinColumn(name = "cliente", referencedColumnName = "cedula")
     @ManyToOne(optional = false)

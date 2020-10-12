@@ -45,10 +45,10 @@ public class PagoImpuesto implements Serializable {
     @Column(name = "costo")
     private BigDecimal costo;
     @Basic(optional = false)
-    @Column(name = "fechaLimite")
+    @Column(name = "fecha_limite")
     @Temporal(TemporalType.DATE)
     private Date fechaLimite;
-    @Column(name = "fechaPago")
+    @Column(name = "fecha_pago")
     @Temporal(TemporalType.DATE)
     private Date fechaPago;
     @JoinColumn(name = "tienda", referencedColumnName = "id", insertable = false, updatable = false)

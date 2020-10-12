@@ -22,12 +22,12 @@ public class PagoServicioPK implements Serializable {
     private int tienda;
     @Basic(optional = false)
     @Column(name = "servicio")
-    private String servicio;
+    private int servicio;
 
     public PagoServicioPK() {
     }
 
-    public PagoServicioPK(int tienda, String servicio) {
+    public PagoServicioPK(int tienda, int servicio) {
         this.tienda = tienda;
         this.servicio = servicio;
     }
@@ -40,11 +40,11 @@ public class PagoServicioPK implements Serializable {
         this.tienda = tienda;
     }
 
-    public String getServicio() {
+    public int getServicio() {
         return servicio;
     }
 
-    public void setServicio(String servicio) {
+    public void setServicio(int servicio) {
         this.servicio = servicio;
     }
 
@@ -52,7 +52,7 @@ public class PagoServicioPK implements Serializable {
     public int hashCode() {
         int hash = 0;
         hash += (int) tienda;
-        hash += (servicio != null ? servicio.hashCode() : 0);
+        hash += (int) servicio;
         return hash;
     }
 
@@ -66,7 +66,7 @@ public class PagoServicioPK implements Serializable {
         if (this.tienda != other.tienda) {
             return false;
         }
-        if ((this.servicio == null && other.servicio != null) || (this.servicio != null && !this.servicio.equals(other.servicio))) {
+        if (this.servicio != other.servicio) {
             return false;
         }
         return true;
