@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,7 +54,7 @@ public class RolController {
 		}
     }
 	
-	@PostMapping("/mostrarRol")
+	@GetMapping("/mostrarRol")
     public String buscarRol(@RequestBody Rol rol) {
         JSONArray array = new JSONArray();
         Rol roles = rolService.mostrarRol(rol.getId());

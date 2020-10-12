@@ -52,7 +52,7 @@ public class Recibo implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fecha;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Basic(optional = false)
+    @Basic(optional = true)
     @Column(name = "total_recibo")
     private BigDecimal totalRecibo;
     @Basic(optional = false)
@@ -61,7 +61,7 @@ public class Recibo implements Serializable {
     @Basic(optional = false)
     @Column(name = "estado")
     private String estado;
-    @Basic(optional = false)
+    @Basic(optional = true)
     @Column(name = "fecha_pago")
     @Temporal(TemporalType.DATE)
     private Date fechaPago;
