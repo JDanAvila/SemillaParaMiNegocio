@@ -17,17 +17,21 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class PagoServicioPK implements Serializable {
 
-    @Basic(optional = false)
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Basic(optional = false)
     @Column(name = "tienda")
     private int tienda;
     @Basic(optional = false)
     @Column(name = "servicio")
-    private int servicio;
+    private String servicio;
 
     public PagoServicioPK() {
     }
 
-    public PagoServicioPK(int tienda, int servicio) {
+    public PagoServicioPK(int tienda, String servicio) {
         this.tienda = tienda;
         this.servicio = servicio;
     }
@@ -40,11 +44,11 @@ public class PagoServicioPK implements Serializable {
         this.tienda = tienda;
     }
 
-    public int getServicio() {
+    public String getServicio() {
         return servicio;
     }
 
-    public void setServicio(int servicio) {
+    public void setServicio(String servicio) {
         this.servicio = servicio;
     }
 
@@ -52,7 +56,7 @@ public class PagoServicioPK implements Serializable {
     public int hashCode() {
         int hash = 0;
         hash += (int) tienda;
-        hash += (int) servicio;
+        hash += (servicio != null ? servicio.hashCode() : 0);
         return hash;
     }
 
@@ -66,7 +70,7 @@ public class PagoServicioPK implements Serializable {
         if (this.tienda != other.tienda) {
             return false;
         }
-        if (this.servicio != other.servicio) {
+        if ((this.servicio == null && other.servicio != null) || (this.servicio != null && !this.servicio.equals(other.servicio))) {
             return false;
         }
         return true;

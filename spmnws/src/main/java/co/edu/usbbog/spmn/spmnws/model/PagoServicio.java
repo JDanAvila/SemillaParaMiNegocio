@@ -54,7 +54,7 @@ public class PagoServicio implements Serializable {
     @JoinColumn(name = "tienda", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Tienda tienda1;
-    @JoinColumn(name = "servicio", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "servicio", referencedColumnName = "nombre", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Servicio servicio1;
 
@@ -71,7 +71,7 @@ public class PagoServicio implements Serializable {
         this.fechaLimite = fechaLimite;
     }
 
-    public PagoServicio(int tienda, int servicio) {
+    public PagoServicio(int tienda, String servicio) {
         this.pagoServicioPK = new PagoServicioPK(tienda, servicio);
     }
 

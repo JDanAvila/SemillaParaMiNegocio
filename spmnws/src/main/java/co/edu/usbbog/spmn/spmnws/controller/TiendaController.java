@@ -4,8 +4,11 @@ import java.util.List;
  
 import org.json.JSONArray; 
 import org.json.JSONObject; 
-import org.springframework.beans.factory.annotation.Autowired; 
-import org.springframework.web.bind.annotation.PostMapping; 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody; 
 import org.springframework.web.bind.annotation.RestController; 
  
@@ -30,7 +33,7 @@ public class TiendaController {
         } 
     } 
 	 
-	@PostMapping("/eliminarTienda") 
+	@DeleteMapping("/eliminarTienda") 
     public String eliminarTienda(@RequestBody Tienda deleteTienda) { 
 		JSONObject respuesta= new JSONObject(); 
 		if(tiendaService.eliminarTienda(deleteTienda).equals("Se elimino la tienda")) { 
@@ -42,7 +45,7 @@ public class TiendaController {
 		} 
     } 
 	 
-	@PostMapping("/mostrarTienda") 
+	@GetMapping("/mostrarTienda") 
     public String buscarTienda(@RequestBody Tienda tienda) { 
         JSONArray array = new JSONArray(); 
         Tienda tiendas = tiendaService.mostrarTienda(tienda.getId()); 
@@ -63,7 +66,7 @@ public class TiendaController {
  
     } 
 	 
-	@PostMapping("/modificarTienda") 
+	@PutMapping("/modificarTienda") 
 	public String modificarTienda(@RequestBody Tienda editTienda) { 
 		JSONObject respuesta= new JSONObject(); 
 		if(tiendaService.modificarTienda(editTienda).equals("Se modifico la tienda")) { 

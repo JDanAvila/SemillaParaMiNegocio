@@ -28,7 +28,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Servicio.findAll", query = "SELECT s FROM Servicio s")
-    , @NamedQuery(name = "Servicio.findById", query = "SELECT s FROM Servicio s WHERE s.id = :id")
     , @NamedQuery(name = "Servicio.findByNombre", query = "SELECT s FROM Servicio s WHERE s.nombre = :nombre")
     , @NamedQuery(name = "Servicio.findByDescripcion", query = "SELECT s FROM Servicio s WHERE s.descripcion = :descripcion")
     , @NamedQuery(name = "Servicio.findByTelefono", query = "SELECT s FROM Servicio s WHERE s.telefono = :telefono")
@@ -37,9 +36,6 @@ public class Servicio implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
     @Basic(optional = false)
     @Column(name = "nombre")
     private String nombre;
@@ -58,24 +54,15 @@ public class Servicio implements Serializable {
     public Servicio() {
     }
 
-    public Servicio(Integer id) {
-        this.id = id;
+    public Servicio(String nombre) {
+        this.nombre = nombre;
     }
 
-    public Servicio(Integer id, String nombre, String descripcion, int telefono, String entidad) {
-        this.id = id;
+    public Servicio(String nombre, String descripcion, int telefono, String entidad) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.telefono = telefono;
         this.entidad = entidad;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getNombre() {
@@ -122,7 +109,7 @@ public class Servicio implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (nombre != null ? nombre.hashCode() : 0);
         return hash;
     }
 
@@ -133,7 +120,7 @@ public class Servicio implements Serializable {
             return false;
         }
         Servicio other = (Servicio) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.nombre == null && other.nombre != null) || (this.nombre != null && !this.nombre.equals(other.nombre))) {
             return false;
         }
         return true;
@@ -141,7 +128,7 @@ public class Servicio implements Serializable {
 
     @Override
     public String toString() {
-        return "co.edu.usbbog.spmn.spmnws.model.Servicio[ id=" + id + " ]";
+        return "co.edu.usbbog.spmn.spmnws.model.Servicio[ nombre=" + nombre + " ]";
     }
     
 }

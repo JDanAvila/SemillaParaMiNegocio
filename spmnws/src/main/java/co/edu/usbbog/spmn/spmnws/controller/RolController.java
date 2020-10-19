@@ -49,7 +49,7 @@ public class RolController {
         if (roles != null) {
             JSONObject rolJson = new JSONObject();
             rolJson.put("id", roles.getId());
-            rolJson.put("cargo", roles.getCargo());
+            rolJson.put("nombre", roles.getCargo());
             array.put(rolJson);
             return array.toString();
         } else {

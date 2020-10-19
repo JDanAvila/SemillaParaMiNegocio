@@ -147,12 +147,11 @@ DEFAULT CHARACTER SET = utf8;
 DROP TABLE IF EXISTS `spmn_db`.`servicio` ;
 
 CREATE TABLE IF NOT EXISTS `spmn_db`.`servicio` (
-  `id` INT(10) NOT NULL,
   `nombre` VARCHAR(45) NOT NULL,
   `descripcion` VARCHAR(99) NOT NULL,
   `telefono` INT(15) NOT NULL,
   `entidad` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`nombre`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -241,7 +240,7 @@ DROP TABLE IF EXISTS `spmn_db`.`pago_servicio` ;
 
 CREATE TABLE IF NOT EXISTS `spmn_db`.`pago_servicio` (
   `tienda` INT(11) NOT NULL,
-  `servicio` INT(10) NOT NULL,
+  `servicio` VARCHAR(45) NOT NULL,
   `precio` DECIMAL(10,2) NOT NULL,
   `fecha_limite` DATE NOT NULL,
   `fecha_pago` DATE NULL,
@@ -255,7 +254,7 @@ CREATE TABLE IF NOT EXISTS `spmn_db`.`pago_servicio` (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_pago_servicio_tienda`
     FOREIGN KEY (`servicio`)
-    REFERENCES `spmn_db`.`servicio` (`id`)
+    REFERENCES `spmn_db`.`servicio` (`nombre`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
