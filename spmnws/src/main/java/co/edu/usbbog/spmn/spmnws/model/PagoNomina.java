@@ -27,8 +27,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "PagoNomina.findAll", query = "SELECT p FROM PagoNomina p")
-    , @NamedQuery(name = "PagoNomina.findByEmpleado", query = "SELECT p FROM PagoNomina p WHERE p.pagoNominaPK.empleado = :empleado")
-    , @NamedQuery(name = "PagoNomina.findByTienda", query = "SELECT p FROM PagoNomina p WHERE p.pagoNominaPK.tienda = :tienda")
+    , @NamedQuery(name = "PagoNomina.findByEmpleadoCedula", query = "SELECT p FROM PagoNomina p WHERE p.pagoNominaPK.empleadoCedula = :empleadoCedula")
+    , @NamedQuery(name = "PagoNomina.findByTiendaId", query = "SELECT p FROM PagoNomina p WHERE p.pagoNominaPK.tiendaId = :tiendaId")
     , @NamedQuery(name = "PagoNomina.findByDiasTrab", query = "SELECT p FROM PagoNomina p WHERE p.diasTrab = :diasTrab")
     , @NamedQuery(name = "PagoNomina.findByAuxTrans", query = "SELECT p FROM PagoNomina p WHERE p.auxTrans = :auxTrans")
     , @NamedQuery(name = "PagoNomina.findByLiquidacion", query = "SELECT p FROM PagoNomina p WHERE p.liquidacion = :liquidacion")
@@ -41,7 +41,7 @@ public class PagoNomina implements Serializable {
     @EmbeddedId
     protected PagoNominaPK pagoNominaPK;
     @Basic(optional = false)
-    @Column(name = "diasTrab")
+    @Column(name = "dias_trab")
     private int diasTrab;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
@@ -54,17 +54,17 @@ public class PagoNomina implements Serializable {
     @Column(name = "pension")
     private BigDecimal pension;
     @Basic(optional = false)
-    @Column(name = "netoPagado")
+    @Column(name = "neto_pagado")
     private BigDecimal netoPagado;
     @Basic(optional = false)
-    @Column(name = "fechaPago")
+    @Column(name = "fecha_pago")
     private BigDecimal fechaPago;
-    @JoinColumn(name = "empleado", referencedColumnName = "cedula", insertable = false, updatable = false)
+    @JoinColumn(name = "empleado_cedula", referencedColumnName = "cedula", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Empleado empleado1;
-    @JoinColumn(name = "tienda", referencedColumnName = "id", insertable = false, updatable = false)
+    private Empleado empleado;
+    @JoinColumn(name = "tienda_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Tienda tienda1;
+    private Tienda tienda;
 
     public PagoNomina() {
     }
@@ -83,8 +83,8 @@ public class PagoNomina implements Serializable {
         this.fechaPago = fechaPago;
     }
 
-    public PagoNomina(int empleado, int tienda) {
-        this.pagoNominaPK = new PagoNominaPK(empleado, tienda);
+    public PagoNomina(int empleadoCedula, int tiendaId) {
+        this.pagoNominaPK = new PagoNominaPK(empleadoCedula, tiendaId);
     }
 
     public PagoNominaPK getPagoNominaPK() {
@@ -143,20 +143,20 @@ public class PagoNomina implements Serializable {
         this.fechaPago = fechaPago;
     }
 
-    public Empleado getEmpleado1() {
-        return empleado1;
+    public Empleado getEmpleado() {
+        return empleado;
     }
 
-    public void setEmpleado1(Empleado empleado1) {
-        this.empleado1 = empleado1;
+    public void setEmpleado(Empleado empleado) {
+        this.empleado = empleado;
     }
 
-    public Tienda getTienda1() {
-        return tienda1;
+    public Tienda getTienda() {
+        return tienda;
     }
 
-    public void setTienda1(Tienda tienda1) {
-        this.tienda1 = tienda1;
+    public void setTienda(Tienda tienda) {
+        this.tienda = tienda;
     }
 
     @Override

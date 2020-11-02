@@ -54,7 +54,7 @@ public class Tienda implements Serializable {
     private int telefono;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
-    @Column(name = "cajaMenor")
+    @Column(name = "caja_menor")
     private BigDecimal cajaMenor;
     @Basic(optional = false)
     @Column(name = "deudas")
@@ -64,7 +64,7 @@ public class Tienda implements Serializable {
     private BigDecimal saldo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tienda1")
     private Collection<PagoServicio> pagoServicioCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tienda1")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tienda")
     private Collection<PagoNomina> pagoNominaCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tienda")
     private Collection<Usuario> usuarioCollection;

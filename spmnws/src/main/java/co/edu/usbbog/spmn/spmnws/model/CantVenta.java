@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "CantVenta.findAll", query = "SELECT c FROM CantVenta c")
-    , @NamedQuery(name = "CantVenta.findByFactura", query = "SELECT c FROM CantVenta c WHERE c.cantVentaPK.factura = :factura")
+    , @NamedQuery(name = "CantVenta.findByFacturaVenta", query = "SELECT c FROM CantVenta c WHERE c.cantVentaPK.facturaVenta = :facturaVenta")
     , @NamedQuery(name = "CantVenta.findByProducto", query = "SELECT c FROM CantVenta c WHERE c.cantVentaPK.producto = :producto")
     , @NamedQuery(name = "CantVenta.findByCantidad", query = "SELECT c FROM CantVenta c WHERE c.cantidad = :cantidad")})
 public class CantVenta implements Serializable {
@@ -37,7 +37,7 @@ public class CantVenta implements Serializable {
     @Basic(optional = false)
     @Column(name = "cantidad")
     private int cantidad;
-    @JoinColumn(name = "factura", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "factura_venta", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private FacturaVenta facturaVenta;
     @JoinColumn(name = "producto", referencedColumnName = "id", insertable = false, updatable = false)
@@ -56,8 +56,8 @@ public class CantVenta implements Serializable {
         this.cantidad = cantidad;
     }
 
-    public CantVenta(int factura, int producto) {
-        this.cantVentaPK = new CantVentaPK(factura, producto);
+    public CantVenta(int facturaVenta, int producto) {
+        this.cantVentaPK = new CantVentaPK(facturaVenta, producto);
     }
 
     public CantVentaPK getCantVentaPK() {
@@ -76,12 +76,12 @@ public class CantVenta implements Serializable {
         this.cantidad = cantidad;
     }
 
-    public FacturaVenta getFacturaVenta() {
+    public FacturaVenta getFacturaVenta1() {
         return facturaVenta;
     }
 
-    public void setFacturaVenta(FacturaVenta facturaVenta) {
-        this.facturaVenta = facturaVenta;
+    public void setFacturaVenta1(FacturaVenta facturaVenta1) {
+        this.facturaVenta = facturaVenta1;
     }
 
     public Producto getProducto1() {

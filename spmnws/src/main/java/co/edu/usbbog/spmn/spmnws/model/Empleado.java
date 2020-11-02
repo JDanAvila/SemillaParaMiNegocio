@@ -7,8 +7,8 @@ package co.edu.usbbog.spmn.spmnws.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Collection;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,8 +20,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -49,7 +47,7 @@ public class Empleado implements Serializable {
     private Integer cedula;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
-    @Column(name = "sueldoBasico")
+    @Column(name = "sueldo_basico")
     private BigDecimal sueldoBasico;
     @Basic(optional = false)
     @Column(name = "arl")
@@ -57,17 +55,14 @@ public class Empleado implements Serializable {
     @Basic(optional = false)
     @Column(name = "eps")
     private BigDecimal eps;
-    @Basic(optional = false)
-    @Column(name = "fechaIngreso")
-    @Temporal(TemporalType.DATE)
-    private Date fechaIngreso;
-    @Column(name = "fechaSalida")
-    @Temporal(TemporalType.DATE)
-    private Date fechaSalida;
+    @Column(name = "fecha_ingreso", columnDefinition = "DATE", nullable = false)
+    private LocalDate fechaIngreso;
+    @Column(name = "fecha_salida", columnDefinition = "DATE", nullable = false)
+    private LocalDate fechaSalida;
     @JoinColumn(name = "cedula", referencedColumnName = "cedula", insertable = false, updatable = false)
-    @OneToOne(optional = false)
+    @OneToOne(optional = true)
     private Usuario usuario;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "empleado1")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "empleado")
     private Collection<PagoNomina> pagoNominaCollection;
 
     public Empleado() {
@@ -77,7 +72,7 @@ public class Empleado implements Serializable {
         this.cedula = cedula;
     }
 
-    public Empleado(Integer cedula, BigDecimal sueldoBasico, BigDecimal arl, BigDecimal eps, Date fechaIngreso) {
+    public Empleado(Integer cedula, BigDecimal sueldoBasico, BigDecimal arl, BigDecimal eps, LocalDate fechaIngreso) {
         this.cedula = cedula;
         this.sueldoBasico = sueldoBasico;
         this.arl = arl;
@@ -117,19 +112,19 @@ public class Empleado implements Serializable {
         this.eps = eps;
     }
 
-    public Date getFechaIngreso() {
+    public LocalDate getFechaIngreso() {
         return fechaIngreso;
     }
 
-    public void setFechaIngreso(Date fechaIngreso) {
+    public void setFechaIngreso(LocalDate fechaIngreso) {
         this.fechaIngreso = fechaIngreso;
     }
 
-    public Date getFechaSalida() {
+    public LocalDate getFechaSalida() {
         return fechaSalida;
     }
 
-    public void setFechaSalida(Date fechaSalida) {
+    public void setFechaSalida(LocalDate fechaSalida) {
         this.fechaSalida = fechaSalida;
     }
 

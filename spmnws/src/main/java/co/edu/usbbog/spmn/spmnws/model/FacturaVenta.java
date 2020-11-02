@@ -7,8 +7,8 @@ package co.edu.usbbog.spmn.spmnws.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Collection;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,8 +20,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -47,22 +45,20 @@ public class FacturaVenta implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @Column(name = "fecha")
-    @Temporal(TemporalType.DATE)
-    private Date fecha;
+    @Column(name = "fecha",columnDefinition = "DATE", nullable = false)
+    private LocalDate fecha;
     @Basic(optional = false)
     @Column(name = "descripcion")
     private String descripcion;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
-    @Column(name = "totalBruto")
+    @Column(name = "total_bruto")
     private BigDecimal totalBruto;
     @Basic(optional = false)
     @Column(name = "impuestos")
     private BigDecimal impuestos;
     @Basic(optional = false)
-    @Column(name = "totalPagar")
+    @Column(name = "total_pagar")
     private BigDecimal totalPagar;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "facturaVenta")
     private Collection<CantVenta> cantVentaCollection;
@@ -77,7 +73,7 @@ public class FacturaVenta implements Serializable {
         this.id = id;
     }
 
-    public FacturaVenta(Integer id, Date fecha, String descripcion, BigDecimal totalBruto, BigDecimal impuestos, BigDecimal totalPagar) {
+    public FacturaVenta(Integer id, LocalDate fecha, String descripcion, BigDecimal totalBruto, BigDecimal impuestos, BigDecimal totalPagar) {
         this.id = id;
         this.fecha = fecha;
         this.descripcion = descripcion;
@@ -94,11 +90,11 @@ public class FacturaVenta implements Serializable {
         this.id = id;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 

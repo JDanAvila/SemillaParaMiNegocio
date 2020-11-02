@@ -7,8 +7,8 @@ package co.edu.usbbog.spmn.spmnws.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Collection;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,8 +20,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -47,13 +45,11 @@ public class Recibo implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @Column(name = "fecha")
-    @Temporal(TemporalType.DATE)
-    private Date fecha;
+    @Column(name = "fecha", columnDefinition = "DATE", nullable = false)
+    private LocalDate fecha;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
-    @Column(name = "totalRecibo")
+    @Column(name = "total_recibo")
     private BigDecimal totalRecibo;
     @Basic(optional = false)
     @Column(name = "descripcion")
@@ -61,10 +57,8 @@ public class Recibo implements Serializable {
     @Basic(optional = false)
     @Column(name = "estado")
     private String estado;
-    @Basic(optional = false)
-    @Column(name = "fechaPago")
-    @Temporal(TemporalType.DATE)
-    private Date fechaPago;
+    @Column(name = "fecha_pago", columnDefinition = "DATE", nullable = false)
+    private LocalDate fechaPago;
     @JoinColumn(name = "proveedor", referencedColumnName = "nit")
     @ManyToOne(optional = false)
     private Proveedor proveedor;
@@ -78,7 +72,7 @@ public class Recibo implements Serializable {
         this.id = id;
     }
 
-    public Recibo(Integer id, Date fecha, BigDecimal totalRecibo, String descripcion, String estado, Date fechaPago) {
+    public Recibo(Integer id, LocalDate fecha, BigDecimal totalRecibo, String descripcion, String estado, LocalDate fechaPago) {
         this.id = id;
         this.fecha = fecha;
         this.totalRecibo = totalRecibo;
@@ -95,11 +89,11 @@ public class Recibo implements Serializable {
         this.id = id;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
@@ -127,11 +121,11 @@ public class Recibo implements Serializable {
         this.estado = estado;
     }
 
-    public Date getFechaPago() {
+    public LocalDate getFechaPago() {
         return fechaPago;
     }
 
-    public void setFechaPago(Date fechaPago) {
+    public void setFechaPago(LocalDate fechaPago) {
         this.fechaPago = fechaPago;
     }
 

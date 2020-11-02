@@ -7,7 +7,7 @@ package co.edu.usbbog.spmn.spmnws.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -17,8 +17,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -44,17 +42,14 @@ public class PagoServicio implements Serializable {
     @Basic(optional = false)
     @Column(name = "precio")
     private BigDecimal precio;
-    @Basic(optional = false)
-    @Column(name = "fechaLimite")
-    @Temporal(TemporalType.DATE)
-    private Date fechaLimite;
-    @Column(name = "fechaPago")
-    @Temporal(TemporalType.DATE)
-    private Date fechaPago;
+    @Column(name = "fecha_limite", columnDefinition = "DATE", nullable = false)
+    private LocalDate fechaLimite;
+    @Column(name = "fecha_pago", columnDefinition = "DATE", nullable = true)
+    private LocalDate fechaPago;
     @JoinColumn(name = "tienda", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Tienda tienda1;
-    @JoinColumn(name = "servicio", referencedColumnName = "nombre", insertable = false, updatable = false)
+    @JoinColumn(name = "servicio", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Servicio servicio1;
 
@@ -65,13 +60,13 @@ public class PagoServicio implements Serializable {
         this.pagoServicioPK = pagoServicioPK;
     }
 
-    public PagoServicio(PagoServicioPK pagoServicioPK, BigDecimal precio, Date fechaLimite) {
+    public PagoServicio(PagoServicioPK pagoServicioPK, BigDecimal precio, LocalDate fechaLimite) {
         this.pagoServicioPK = pagoServicioPK;
         this.precio = precio;
         this.fechaLimite = fechaLimite;
     }
 
-    public PagoServicio(int tienda, String servicio) {
+    public PagoServicio(int tienda, int servicio) {
         this.pagoServicioPK = new PagoServicioPK(tienda, servicio);
     }
 
@@ -91,19 +86,19 @@ public class PagoServicio implements Serializable {
         this.precio = precio;
     }
 
-    public Date getFechaLimite() {
+    public LocalDate getFechaLimite() {
         return fechaLimite;
     }
 
-    public void setFechaLimite(Date fechaLimite) {
+    public void setFechaLimite(LocalDate fechaLimite) {
         this.fechaLimite = fechaLimite;
     }
 
-    public Date getFechaPago() {
+    public LocalDate getFechaPago() {
         return fechaPago;
     }
 
-    public void setFechaPago(Date fechaPago) {
+    public void setFechaPago(LocalDate fechaPago) {
         this.fechaPago = fechaPago;
     }
 

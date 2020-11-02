@@ -7,7 +7,7 @@ package co.edu.usbbog.spmn.spmnws.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -17,8 +17,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -44,13 +42,10 @@ public class PagoImpuesto implements Serializable {
     @Basic(optional = false)
     @Column(name = "costo")
     private BigDecimal costo;
-    @Basic(optional = false)
-    @Column(name = "fechaLimite")
-    @Temporal(TemporalType.DATE)
-    private Date fechaLimite;
-    @Column(name = "fechaPago")
-    @Temporal(TemporalType.DATE)
-    private Date fechaPago;
+    @Column(name = "fechaLimite", columnDefinition = "DATE", nullable = false)
+    private LocalDate fechaLimite;
+    @Column(name = "fechaPago", columnDefinition = "DATE", nullable = true)
+    private LocalDate fechaPago;
     @JoinColumn(name = "tienda", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Tienda tienda1;
@@ -65,7 +60,7 @@ public class PagoImpuesto implements Serializable {
         this.pagoImpuestoPK = pagoImpuestoPK;
     }
 
-    public PagoImpuesto(PagoImpuestoPK pagoImpuestoPK, BigDecimal costo, Date fechaLimite) {
+    public PagoImpuesto(PagoImpuestoPK pagoImpuestoPK, BigDecimal costo, LocalDate fechaLimite) {
         this.pagoImpuestoPK = pagoImpuestoPK;
         this.costo = costo;
         this.fechaLimite = fechaLimite;
@@ -91,19 +86,19 @@ public class PagoImpuesto implements Serializable {
         this.costo = costo;
     }
 
-    public Date getFechaLimite() {
+    public LocalDate getFechaLimite() {
         return fechaLimite;
     }
 
-    public void setFechaLimite(Date fechaLimite) {
+    public void setFechaLimite(LocalDate fechaLimite) {
         this.fechaLimite = fechaLimite;
     }
 
-    public Date getFechaPago() {
+    public LocalDate getFechaPago() {
         return fechaPago;
     }
 
-    public void setFechaPago(Date fechaPago) {
+    public void setFechaPago(LocalDate fechaPago) {
         this.fechaPago = fechaPago;
     }
 

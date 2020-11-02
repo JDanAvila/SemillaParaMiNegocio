@@ -9,6 +9,6 @@ public interface IUsuarioService {
 	public String eliminarUsuario(Usuario user);
 	public String modificarUsuario(Usuario user);
 	public int contarUsuario();
-    public Usuario mostrarRol(int id);
+    public Usuario mostrarUsuario(int cc);
     public List<Usuario> findAll();
 }
